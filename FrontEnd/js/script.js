@@ -1,207 +1,476 @@
-// ==========================================
-// JobHub AI - Landing Page JavaScript
-// ==========================================
+// ======================================================
+// JOBHUB AI - MAIN JAVASCRIPT
+// Purple / Black / White AI Theme
+// ======================================================
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    // ==========================================
-    // SEARCH JOBS
-    // ==========================================
+    // ==================================================
+    // BACKGROUND AI PARTICLES
+    // ==================================================
 
-    const searchButton = document.querySelector(".search-btn");
-    const searchInputs = document.querySelectorAll(".search-field input");
+    const particleContainer = document.createElement("div");
 
-    if (searchButton) {
-        searchButton.addEventListener("click", function () {
+    particleContainer.className = "particle-container";
 
-            const jobTitle = searchInputs[0].value.trim();
-            const location = searchInputs[1].value.trim();
+    particleContainer.style.position = "fixed";
+    particleContainer.style.top = "0";
+    particleContainer.style.left = "0";
+    particleContainer.style.width = "100%";
+    particleContainer.style.height = "100%";
+    particleContainer.style.pointerEvents = "none";
+    particleContainer.style.overflow = "hidden";
+    particleContainer.style.zIndex = "-1";
 
-            if (jobTitle === "" && location === "") {
-                alert("Please enter a job title, skill, keyword, or location.");
-                return;
-            }
+    document.body.appendChild(particleContainer);
 
-            if (jobTitle !== "" && location !== "") {
-                alert(
-                    `Searching for "${jobTitle}" jobs in "${location}"...`
-                );
-            } else if (jobTitle !== "") {
-                alert(
-                    `Searching for "${jobTitle}" jobs...`
-                );
-            } else {
-                alert(
-                    `Searching for jobs in "${location}"...`
-                );
-            }
 
-            // Actual job search will be connected to the backend later.
-            console.log("Job:", jobTitle);
-            console.log("Location:", location);
-        });
+    // Create particles
+    const particleCount = 35;
+
+    for (let i = 0; i < particleCount; i++) {
+
+        const particle = document.createElement("div");
+
+        particle.className = "ai-particle";
+
+        const size = Math.random() * 4 + 2;
+
+        particle.style.position = "absolute";
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+
+        particle.style.borderRadius = "50%";
+
+        particle.style.background =
+            Math.random() > 0.5
+                ? "#8b5cf6"
+                : "#c084fc";
+
+        particle.style.boxShadow =
+            "0 0 12px rgba(139, 92, 246, 0.8)";
+
+        particle.style.opacity =
+            Math.random() * 0.5 + 0.2;
+
+        particle.style.left =
+            `${Math.random() * 100}%`;
+
+        particle.style.top =
+            `${Math.random() * 100}%`;
+
+        particle.style.transition =
+            "transform 3s ease-out";
+
+        particleContainer.appendChild(particle);
+
+
+        // Random floating animation
+        animateParticle(particle);
     }
 
 
-    // ==========================================
-    // POPULAR SEARCHES
-    // ==========================================
+    // ==================================================
+    // PARTICLE FLOATING FUNCTION
+    // ==================================================
 
-    const popularSearches = document.querySelectorAll(".popular-searches a");
+    function animateParticle(particle) {
+
+        const moveX =
+            (Math.random() - 0.5) * 180;
+
+        const moveY =
+            (Math.random() - 0.5) * 180;
+
+        const duration =
+            Math.random() * 5000 + 5000;
+
+        particle.animate(
+            [
+                {
+                    transform: "translate(0px, 0px)"
+                },
+                {
+                    transform:
+                        `translate(${moveX}px, ${moveY}px)`
+                },
+                {
+                    transform: "translate(0px, 0px)"
+                }
+            ],
+            {
+                duration: duration,
+                iterations: Infinity,
+                easing: "ease-in-out"
+            }
+        );
+    }
+
+
+    // ==================================================
+    // MOUSE PARALLAX EFFECT
+    // ==================================================
+
+    const particles =
+        document.querySelectorAll(".ai-particle");
+
+    document.addEventListener("mousemove", function (event) {
+
+        const mouseX =
+            (event.clientX / window.innerWidth) - 0.5;
+
+        const mouseY =
+            (event.clientY / window.innerHeight) - 0.5;
+
+        particles.forEach(function (particle, index) {
+
+            const strength =
+                (index % 5 + 1) * 4;
+
+            const x =
+                mouseX * strength;
+
+            const y =
+                mouseY * strength;
+
+            particle.style.marginLeft =
+                `${x}px`;
+
+            particle.style.marginTop =
+                `${y}px`;
+        });
+
+    });
+
+
+    // ==================================================
+    // SEARCH JOBS
+    // ==================================================
+
+    const searchButton =
+        document.querySelector(".search-btn");
+
+    const searchInputs =
+        document.querySelectorAll(".search-field input");
+
+
+    if (searchButton) {
+
+        searchButton.addEventListener(
+            "click",
+            function () {
+
+                const jobTitle =
+                    searchInputs[0]
+                        ? searchInputs[0].value.trim()
+                        : "";
+
+                const location =
+                    searchInputs[1]
+                        ? searchInputs[1].value.trim()
+                        : "";
+
+
+                if (
+                    jobTitle === "" &&
+                    location === ""
+                ) {
+
+                    alert(
+                        "Please enter a job title, skill, keyword, or location."
+                    );
+
+                    return;
+                }
+
+
+                if (
+                    jobTitle !== "" &&
+                    location !== ""
+                ) {
+
+                    alert(
+                        `Searching for "${jobTitle}" jobs in "${location}"...`
+                    );
+
+                } else if (jobTitle !== "") {
+
+                    alert(
+                        `Searching for "${jobTitle}" jobs...`
+                    );
+
+                } else {
+
+                    alert(
+                        `Searching for jobs in "${location}"...`
+                    );
+                }
+
+
+                console.log(
+                    "Job Search:",
+                    jobTitle
+                );
+
+                console.log(
+                    "Location:",
+                    location
+                );
+
+            }
+        );
+    }
+
+
+    // ==================================================
+    // POPULAR SEARCHES
+    // ==================================================
+
+    const popularSearches =
+        document.querySelectorAll(
+            ".popular-searches a"
+        );
+
 
     popularSearches.forEach(function (search) {
 
-        search.addEventListener("click", function (event) {
+        search.addEventListener(
+            "click",
+            function (event) {
 
-            event.preventDefault();
+                event.preventDefault();
 
-            const searchText = this.textContent.trim();
+                const searchText =
+                    this.textContent.trim();
 
-            searchInputs[0].value = searchText;
 
-            // Move cursor to the search field
-            searchInputs[0].focus();
+                if (searchInputs[0]) {
 
-            console.log("Popular search selected:", searchText);
-        });
+                    searchInputs[0].value =
+                        searchText;
+
+                    searchInputs[0].focus();
+                }
+
+
+                console.log(
+                    "Popular search selected:",
+                    searchText
+                );
+
+            }
+        );
 
     });
 
 
-    // ==========================================
+    // ==================================================
     // LOGIN BUTTON
-    // ==========================================
+    // ==================================================
 
-    const loginButton = document.querySelector(".login-btn");
+    const loginButton =
+        document.querySelector(".login-btn");
+
 
     if (loginButton) {
-        loginButton.addEventListener("click", function () {
 
-            alert("Login page will be available soon.");
+        loginButton.addEventListener(
+            "click",
+            function () {
 
-            // Later we will use:
-            // window.location.href = "pages/login.html";
+                alert(
+                    "Login page will be available soon."
+                );
 
-        });
+            }
+        );
+
     }
 
 
-    // ==========================================
-    // GET STARTED BUTTON
-    // ==========================================
+    // ==================================================
+    // GET STARTED / SIGN UP BUTTON
+    // ==================================================
 
-    const signupButton = document.querySelector(".signup-btn");
+    const signupButton =
+        document.querySelector(".signup-btn");
+
 
     if (signupButton) {
-        signupButton.addEventListener("click", function () {
 
-            alert("Sign Up page will be available soon.");
+        signupButton.addEventListener(
+            "click",
+            function () {
 
-            // Later we will use:
-            // window.location.href = "pages/signup.html";
+                alert(
+                    "Sign Up page will be available soon."
+                );
 
-        });
+            }
+        );
+
     }
 
 
-    // ==========================================
-    // BOOKMARK / HEART BUTTONS
-    // ==========================================
+    // ==================================================
+    // HEART / BOOKMARK BUTTONS
+    // ==================================================
 
-    const hearts = document.querySelectorAll(".heart, .bookmark");
+    const hearts =
+        document.querySelectorAll(
+            ".heart, .bookmark"
+        );
+
 
     hearts.forEach(function (heart) {
 
-        heart.addEventListener("click", function () {
+        heart.addEventListener(
+            "click",
+            function () {
 
-            if (this.textContent.trim() === "♡") {
-                this.textContent = "♥";
-                this.classList.add("saved");
+                if (
+                    this.textContent.trim() === "♡"
+                ) {
 
-                alert("Job saved to your favorites!");
-            } else {
-                this.textContent = "♡";
-                this.classList.remove("saved");
+                    this.textContent = "♥";
 
-                alert("Job removed from your favorites.");
+                    this.style.color =
+                        "#c084fc";
+
+                    this.style.textShadow =
+                        "0 0 12px rgba(192,132,252,0.7)";
+
+                } else {
+
+                    this.textContent = "♡";
+
+                    this.style.color = "";
+
+                    this.style.textShadow = "";
+                }
+
             }
-
-        });
+        );
 
     });
 
 
-    // ==========================================
-    // NAVIGATION LINKS
-    // ==========================================
+    // ==================================================
+    // NAVIGATION
+    // ==================================================
 
-    const navLinks = document.querySelectorAll("nav a");
+    const navLinks =
+        document.querySelectorAll(
+            ".navbar nav a"
+        );
+
 
     navLinks.forEach(function (link) {
 
-        link.addEventListener("click", function (event) {
+        link.addEventListener(
+            "click",
+            function (event) {
 
-            event.preventDefault();
+                event.preventDefault();
 
-            const page = this.textContent.trim();
+                const page =
+                    this.textContent.trim();
 
-            if (page === "Home") {
-                window.scrollTo({
-                    top: 0,
-                    behavior: "smooth"
-                });
-            } else {
-                alert(`${page} page will be added soon.`);
+
+                if (page === "Home") {
+
+                    window.scrollTo({
+                        top: 0,
+                        behavior: "smooth"
+                    });
+
+                } else {
+
+                    alert(
+                        `${page} page will be available soon.`
+                    );
+
+                }
+
             }
-
-        });
+        );
 
     });
 
 
-    // ==========================================
+    // ==================================================
     // VIEW ALL JOBS
-    // ==========================================
+    // ==================================================
 
-    const viewJobsLink = document.querySelector(".section-heading a");
+    const viewJobsLink =
+        document.querySelector(
+            ".section-heading > a"
+        );
+
 
     if (viewJobsLink) {
 
-        viewJobsLink.addEventListener("click", function (event) {
+        viewJobsLink.addEventListener(
+            "click",
+            function (event) {
 
-            event.preventDefault();
+                event.preventDefault();
 
-            alert("All jobs page will be available soon.");
+                alert(
+                    "All jobs page will be available soon."
+                );
 
-        });
+            }
+        );
 
     }
 
 
-    // ==========================================
+    // ==================================================
     // FEATURE CARDS
-    // ==========================================
+    // ==================================================
 
-    const features = document.querySelectorAll(".feature");
+    const features =
+        document.querySelectorAll(
+            ".feature"
+        );
+
 
     features.forEach(function (feature) {
 
-        feature.addEventListener("click", function () {
+        feature.addEventListener(
+            "mouseenter",
+            function () {
 
-            const featureName =
-                this.querySelector("h3").textContent.trim();
+                this.style.boxShadow =
+                    "0 0 25px rgba(139,92,246,0.10)";
 
-            console.log("Feature selected:", featureName);
+            }
+        );
 
-        });
+
+        feature.addEventListener(
+            "mouseleave",
+            function () {
+
+                this.style.boxShadow = "";
+
+            }
+        );
 
     });
 
 
-    // ==========================================
+    // ==================================================
     // CONSOLE MESSAGE
-    // ==========================================
+    // ==================================================
 
-    console.log("JobHub AI landing page loaded successfully.");
+    console.log(
+        "✦ JobHub AI loaded successfully."
+    );
+
+    console.log(
+        "Purple AI interface activated."
+    );
 
 });
