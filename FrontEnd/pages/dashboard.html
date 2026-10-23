@@ -548,6 +548,41 @@
 
     </main>
 
+    <!-- FLOATING AI CHATBOT WIDGET -->
+    <div class="floating-chat-container" id="jobhubFloatingChat">
+        <div class="floating-chat-window" id="floatingChatWindow">
+            <div class="floating-chat-header">
+                <div class="floating-bot-info">
+                    <div class="floating-bot-avatar">✦</div>
+                    <div>
+                        <strong style="color:#fff; font-size:0.88rem; display:block;">JobHub AI Assistant</strong>
+                        <span style="color:#10b981; font-size:0.7rem;">● Online · Ready to Help</span>
+                    </div>
+                </div>
+                <div class="floating-chat-actions">
+                    <button id="floatingChatCloseBtn" title="Close Chat">✕</button>
+                </div>
+            </div>
+            <div class="floating-chat-body" id="floatingChatBody">
+                <div class="floating-msg ai">
+                    ✦ Hello! I'm your JobHub AI Career Assistant. Ask me anything about job matches, interview prep, salary negotiation, or resume tips!
+                </div>
+            </div>
+            <div class="floating-starters-row">
+                <div class="floating-chip">🎯 Match jobs for Java & React</div>
+                <div class="floating-chip">💼 Salary tips for ₹30 LPA</div>
+                <div class="floating-chip">📝 How to pass ATS test?</div>
+            </div>
+            <div class="floating-chat-input-bar">
+                <input type="text" id="floatingChatInput" placeholder="Ask AI anything about jobs..." autocomplete="off">
+                <button class="floating-chat-send" id="floatingChatSendBtn">➤</button>
+            </div>
+        </div>
+        <div class="floating-chat-launcher" id="floatingChatLauncher" title="Ask JobHub AI Career Coach">
+            <span>✦</span>
+            <div class="launcher-badge">1</div>
+        </div>
+    </div>
 
     <script src="../js/dashboard.js"></script>
 

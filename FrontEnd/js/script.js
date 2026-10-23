@@ -1,18 +1,15 @@
 // ======================================================
 // JOBHUB AI - MAIN JAVASCRIPT
-// Purple / Black / White AI Theme
+// Purple / Black / White AI Theme & Real-time Neural Finder
 // ======================================================
 
 document.addEventListener("DOMContentLoaded", function () {
 
     // ==================================================
-    // BACKGROUND AI PARTICLES
+    // 1. BACKGROUND AI PARTICLES
     // ==================================================
-
     const particleContainer = document.createElement("div");
-
     particleContainer.className = "particle-container";
-
     particleContainer.style.position = "fixed";
     particleContainer.style.top = "0";
     particleContainer.style.left = "0";
@@ -21,82 +18,39 @@ document.addEventListener("DOMContentLoaded", function () {
     particleContainer.style.pointerEvents = "none";
     particleContainer.style.overflow = "hidden";
     particleContainer.style.zIndex = "-1";
-
     document.body.appendChild(particleContainer);
 
-
-    // Create particles
     const particleCount = 35;
-
     for (let i = 0; i < particleCount; i++) {
-
         const particle = document.createElement("div");
-
         particle.className = "ai-particle";
-
         const size = Math.random() * 4 + 2;
 
         particle.style.position = "absolute";
         particle.style.width = `${size}px`;
         particle.style.height = `${size}px`;
-
         particle.style.borderRadius = "50%";
-
-        particle.style.background =
-            Math.random() > 0.5
-                ? "#8b5cf6"
-                : "#c084fc";
-
-        particle.style.boxShadow =
-            "0 0 12px rgba(139, 92, 246, 0.8)";
-
-        particle.style.opacity =
-            Math.random() * 0.5 + 0.2;
-
-        particle.style.left =
-            `${Math.random() * 100}%`;
-
-        particle.style.top =
-            `${Math.random() * 100}%`;
-
-        particle.style.transition =
-            "transform 3s ease-out";
-
+        particle.style.background = Math.random() > 0.5 ? "#8b5cf6" : "#c084fc";
+        particle.style.boxShadow = "0 0 12px rgba(139, 92, 246, 0.8)";
+        particle.style.opacity = Math.random() * 0.5 + 0.2;
+        particle.style.left = `${Math.random() * 100}%`;
+        particle.style.top = `${Math.random() * 100}%`;
+        particle.style.transition = "transform 3s ease-out";
         particleContainer.appendChild(particle);
 
-
-        // Random floating animation
         animateParticle(particle);
     }
 
-
-    // ==================================================
-    // PARTICLE FLOATING FUNCTION
-    // ==================================================
-
     function animateParticle(particle) {
-
-        const moveX =
-            (Math.random() - 0.5) * 180;
-
-        const moveY =
-            (Math.random() - 0.5) * 180;
-
-        const duration =
-            Math.random() * 5000 + 5000;
+        const moveX = (Math.random() - 0.5) * 180;
+        const moveY = (Math.random() - 0.5) * 180;
+        const duration = Math.random() * 5000 + 5000;
 
         particle.animate(
             [
-                {
-                    transform: "translate(0px, 0px)"
-                },
-                {
-                    transform:
-                        `translate(${moveX}px, ${moveY}px)`
-                },
-                {
-                    transform: "translate(0px, 0px)"
-                }
+                { transform: "translate(0px, 0px)" },
+                { transform: `translate(${moveX}px, ${moveY}px)` },
+                { transform: "translate(0px, 0px)" }
             ],
             {
                 duration: duration,
@@ -106,309 +60,612 @@ document.addEventListener("DOMContentLoaded", function () {
         );
     }
 
-
-    // ==================================================
-    // MOUSE PARALLAX EFFECT
-    // ==================================================
-
-    const particles =
-        document.querySelectorAll(".ai-particle");
-
+    // Mouse Parallax
+    const particles = document.querySelectorAll(".ai-particle");
     document.addEventListener("mousemove", function (event) {
-
-        const mouseX =
-            (event.clientX / window.innerWidth) - 0.5;
-
-        const mouseY =
-            (event.clientY / window.innerHeight) - 0.5;
+        const mouseX = (event.clientX / window.innerWidth) - 0.5;
+        const mouseY = (event.clientY / window.innerHeight) - 0.5;
 
         particles.forEach(function (particle, index) {
-
-            const strength =
-                (index % 5 + 1) * 4;
-
-            const x =
-                mouseX * strength;
-
-            const y =
-                mouseY * strength;
-
-            particle.style.marginLeft =
-                `${x}px`;
-
-            particle.style.marginTop =
-                `${y}px`;
+            const strength = (index % 5 + 1) * 4;
+            const x = mouseX * strength;
+            const y = mouseY * strength;
+            particle.style.marginLeft = `${x}px`;
+            particle.style.marginTop = `${y}px`;
         });
-
     });
 
+    // ==================================================
+    // 2. HERO AI SKILL FINDER & REQUISITION MATCHER
+    // ==================================================
+    initHeroSkillFinder();
 
     // ==================================================
-    // SEARCH JOBS
+    // 3. OMNIPRESENT FLOATING AI CHATBOT WIDGET
     // ==================================================
-
-    const searchButton =
-        document.querySelector(".search-btn");
-
-    const searchInputs =
-        document.querySelectorAll(".search-field input");
-
-
-    if (searchButton) {
-
-        searchButton.addEventListener(
-            "click",
-            function () {
-
-                const jobTitle =
-                    searchInputs[0]
-                        ? searchInputs[0].value.trim()
-                        : "";
-
-                const location =
-                    searchInputs[1]
-                        ? searchInputs[1].value.trim()
-                        : "";
-
-
-                if (
-                    jobTitle === "" &&
-                    location === ""
-                ) {
-                    window.location.href = "pages/job.html";
-                    return;
-                }
-
-                const params = new URLSearchParams();
-                if (jobTitle) params.set("q", jobTitle);
-                if (location) params.set("loc", location);
-                window.location.href = `pages/job.html?${params.toString()}`;
-
-
-                console.log(
-                    "Job Search:",
-                    jobTitle
-                );
-
-                console.log(
-                    "Location:",
-                    location
-                );
-
-            }
-        );
-    }
-
+    initFloatingChatbot();
 
     // ==================================================
-    // POPULAR SEARCHES
+    // 4. NAVIGATION & CTA BUTTONS
     // ==================================================
-
-    const popularSearches =
-        document.querySelectorAll(
-            ".popular-searches a"
-        );
-
-
-    popularSearches.forEach(function (search) {
-
-        search.addEventListener(
-            "click",
-            function (event) {
-
-                event.preventDefault();
-
-                const searchText =
-                    this.textContent.trim();
-
-
-                if (searchInputs[0]) {
-
-                    searchInputs[0].value =
-                        searchText;
-
-                    searchInputs[0].focus();
-                }
-
-
-                console.log(
-                    "Popular search selected:",
-                    searchText
-                );
-
-            }
-        );
-
-    });
-
-
-    // ==================================================
-    // LOGIN BUTTON
-    // ==================================================
-
-    const loginButton =
-        document.querySelector(".login-btn");
-
+    const loginButton = document.querySelector(".login-btn");
     if (loginButton) {
-        loginButton.addEventListener(
-            "click",
-            function () {
-                window.location.href = "pages/login.html";
-            }
-        );
+        loginButton.addEventListener("click", () => window.location.href = "pages/login.html");
     }
 
-
-    // ==================================================
-    // GET STARTED / SIGN UP BUTTON
-    // ==================================================
-
-    const signupButton =
-        document.querySelector(".signup-btn");
-
+    const signupButton = document.querySelector(".signup-btn");
     if (signupButton) {
-        signupButton.addEventListener(
-            "click",
-            function () {
-                window.location.href = "pages/signup.html";
-            }
-        );
+        signupButton.addEventListener("click", () => window.location.href = "pages/signup.html");
     }
 
-
-    // ==================================================
-    // HEART / BOOKMARK BUTTONS
-    // ==================================================
-
-    const hearts =
-        document.querySelectorAll(
-            ".heart, .bookmark"
-        );
-
+    const hearts = document.querySelectorAll(".heart, .bookmark");
     hearts.forEach(function (heart) {
-        heart.addEventListener(
-            "click",
-            function (e) {
-                e.stopPropagation();
-                if (
-                    this.textContent.trim() === "♡"
-                ) {
-                    this.textContent = "♥";
-                    this.style.color =
-                        "#c084fc";
-                    this.style.textShadow =
-                        "0 0 12px rgba(192,132,252,0.7)";
-                } else {
-                    this.textContent = "♡";
-                    this.style.color = "";
-                    this.style.textShadow = "";
-                }
+        heart.addEventListener("click", function (e) {
+            e.stopPropagation();
+            if (this.textContent.trim() === "♡") {
+                this.textContent = "♥";
+                this.style.color = "#c084fc";
+                this.style.textShadow = "0 0 12px rgba(192,132,252,0.7)";
+            } else {
+                this.textContent = "♡";
+                this.style.color = "";
+                this.style.textShadow = "";
             }
-        );
+        });
     });
 
-
-    // ==================================================
-    // NAVIGATION
-    // ==================================================
-
-    const navLinks =
-        document.querySelectorAll(
-            ".navbar nav a"
-        );
-
+    const navLinks = document.querySelectorAll(".navbar nav a");
     navLinks.forEach(function (link) {
-        link.addEventListener(
-            "click",
-            function (event) {
-                const href = this.getAttribute("href");
-                if (href === "#" || href === "index.html") {
-                    event.preventDefault();
-                    window.scrollTo({
-                        top: 0,
-                        behavior: "smooth"
-                    });
-                }
-                // Allow normal navigation for real links
+        link.addEventListener("click", function (event) {
+            const href = this.getAttribute("href");
+            if (href === "#" || href === "index.html") {
+                event.preventDefault();
+                window.scrollTo({ top: 0, behavior: "smooth" });
             }
-        );
+        });
     });
 
-
-    // ==================================================
-    // VIEW ALL JOBS & JOB CARD CLICKS
-    // ==================================================
-
-    const viewJobsLink =
-        document.querySelector(
-            ".section-heading > a"
-        );
-
+    const viewJobsLink = document.querySelector(".section-heading > a");
     if (viewJobsLink) {
-        viewJobsLink.addEventListener(
-            "click",
-            function (event) {
-                window.location.href = "pages/job.html";
-            }
-        );
+        viewJobsLink.addEventListener("click", () => window.location.href = "pages/job.html");
     }
 
     const jobCards = document.querySelectorAll(".job-card-item");
     jobCards.forEach(card => {
         card.style.cursor = "pointer";
-        card.addEventListener("click", function(e) {
+        card.addEventListener("click", function (e) {
             if (!e.target.closest(".heart")) {
                 window.location.href = "pages/job-detail.html";
             }
         });
     });
 
+    console.log("✦ JobHub AI platform loaded successfully.");
+});
 
-    // ==================================================
-    // FEATURE CARDS
-    // ==================================================
+// ======================================================
+// MODULE: HERO AI SKILL FINDER
+// ======================================================
+function initHeroSkillFinder() {
+    const skillsMenu = document.getElementById("homeSkillsMenu");
+    const selectedTray = document.getElementById("selectedSkillsTray");
+    const countBadge = document.getElementById("selectedSkillsCount");
+    const customInput = document.getElementById("customSkillInput");
+    const clearBtn = document.getElementById("clearSelectedSkillsBtn");
+    const matchBtn = document.getElementById("btnHomeAiMatch");
+    const scannerOverlay = document.getElementById("homeNeuralScanner");
+    const ticker = document.getElementById("homeScannerTicker");
+    const resultsContainer = document.getElementById("homeMatchedResultsContainer");
+    const jobsList = document.getElementById("homeMatchedJobsList");
+    const countHeader = document.getElementById("homeMatchedCountHeader");
+    const categoryTabs = document.querySelectorAll(".category-tab-btn");
 
-    const features =
-        document.querySelectorAll(
-            ".feature"
-        );
+    if (!skillsMenu || !selectedTray) return;
 
+    // SKILLS DICTIONARY
+    const SKILLS_CATALOG = {
+        backend: ["Java", "Spring Boot", "Python", "Node.js", "SQL", "Microservices", "C++", "Go", "Redis", "PostgreSQL", "Kafka"],
+        frontend: ["React", "JavaScript", "TypeScript", "HTML5/CSS3", "Next.js", "Figma", "Vue.js", "Tailwind CSS"],
+        cloud: ["Docker", "Kubernetes", "AWS", "CI/CD", "Linux", "Terraform", "Azure", "GCP", "Prometheus"],
+        ai: ["PyTorch", "LLMs", "TensorFlow", "Machine Learning", "Data Analytics", "LangChain", "NLP", "Vector DBs"]
+    };
 
-    features.forEach(function (feature) {
+    // Candidate's active skills (pre-load popular starter stack)
+    let selectedSkills = ["Java", "Spring Boot", "React", "Docker"];
+    let currentCategory = "all";
 
-        feature.addEventListener(
-            "mouseenter",
-            function () {
+    function getVisibleSkills() {
+        if (currentCategory === "all") {
+            const all = [];
+            Object.values(SKILLS_CATALOG).forEach(arr => {
+                arr.forEach(s => {
+                    if (!all.includes(s)) all.push(s);
+                });
+            });
+            return all;
+        }
+        return SKILLS_CATALOG[currentCategory] || [];
+    }
 
-                this.style.boxShadow =
-                    "0 0 25px rgba(139,92,246,0.10)";
+    // Render Skills Menu Chips
+    function renderSkillsMenu() {
+        const visible = getVisibleSkills();
+        skillsMenu.innerHTML = visible.map(skill => {
+            const isSelected = selectedSkills.includes(skill);
+            return `
+                <div class="menu-skill-chip ${isSelected ? 'selected' : ''}" data-skill="${skill}">
+                    <span>${isSelected ? '✓' : '+'}</span>
+                    ${skill}
+                </div>
+            `;
+        }).join('');
 
-            }
-        );
+        skillsMenu.querySelectorAll(".menu-skill-chip").forEach(chip => {
+            chip.addEventListener("click", function () {
+                const skill = this.getAttribute("data-skill");
+                toggleSkill(skill);
+            });
+        });
+    }
 
+    // Render Selected Skills Tray
+    function renderSelectedTray() {
+        // Keep the custom input box at the end
+        const existingInput = selectedTray.querySelector(".custom-skill-input-box");
+        selectedTray.innerHTML = "";
 
-        feature.addEventListener(
-            "mouseleave",
-            function () {
+        selectedSkills.forEach(skill => {
+            const pill = document.createElement("div");
+            pill.className = "selected-skill-pill";
+            pill.innerHTML = `
+                <span>✦ ${skill}</span>
+                <span class="remove-skill" data-skill="${skill}">✕</span>
+            `;
+            selectedTray.appendChild(pill);
+        });
 
-                this.style.boxShadow = "";
+        if (existingInput) {
+            selectedTray.appendChild(existingInput);
+        }
 
-            }
-        );
+        if (countBadge) countBadge.innerText = selectedSkills.length;
 
+        // Attach remove events
+        selectedTray.querySelectorAll(".remove-skill").forEach(btn => {
+            btn.addEventListener("click", function (e) {
+                e.stopPropagation();
+                const skill = this.getAttribute("data-skill");
+                removeSkill(skill);
+            });
+        });
+
+        // Re-render menu to update checkmarks
+        renderSkillsMenu();
+    }
+
+    function toggleSkill(skill) {
+        if (selectedSkills.includes(skill)) {
+            removeSkill(skill);
+        } else {
+            selectedSkills.push(skill);
+            renderSelectedTray();
+        }
+    }
+
+    function removeSkill(skill) {
+        selectedSkills = selectedSkills.filter(s => s !== skill);
+        renderSelectedTray();
+    }
+
+    function addCustomSkill(skill) {
+        const clean = skill.trim();
+        if (clean && !selectedSkills.includes(clean)) {
+            selectedSkills.push(clean);
+            renderSelectedTray();
+        }
+    }
+
+    // Category Tabs Switching
+    categoryTabs.forEach(tab => {
+        tab.addEventListener("click", function () {
+            categoryTabs.forEach(t => t.classList.remove("active"));
+            this.classList.add("active");
+            currentCategory = this.getAttribute("data-cat") || "all";
+            renderSkillsMenu();
+        });
     });
 
+    // Custom Skill Input (Enter Key)
+    if (customInput) {
+        customInput.addEventListener("keypress", function (e) {
+            if (e.key === "Enter") {
+                e.preventDefault();
+                addCustomSkill(customInput.value);
+                customInput.value = "";
+            }
+        });
+    }
+
+    if (clearBtn) {
+        clearBtn.addEventListener("click", function () {
+            selectedSkills = [];
+            renderSelectedTray();
+        });
+    }
+
+    // Initial render
+    renderSelectedTray();
 
     // ==================================================
-    // CONSOLE MESSAGE
+    // AI NEURAL MATCHING EXECUTION
     // ==================================================
+    if (matchBtn) {
+        matchBtn.addEventListener("click", function () {
+            if (selectedSkills.length === 0) {
+                alert("Please select at least 1 skill from the menu to run AI Job Matching!");
+                return;
+            }
 
-    console.log(
-        "✦ JobHub AI loaded successfully."
-    );
+            matchBtn.disabled = true;
+            matchBtn.innerHTML = `<span>⏳</span> AI Scanning Requisitions...`;
 
-    console.log(
-        "Purple AI interface activated."
-    );
+            if (scannerOverlay) scannerOverlay.style.display = "block";
+            if (resultsContainer) resultsContainer.style.display = "none";
+            scannerOverlay.scrollIntoView({ behavior: "smooth", block: "center" });
 
-});
+            const scanSteps = [
+                `1/3 Vectorizing your ${selectedSkills.length} skills [${selectedSkills.slice(0, 3).join(", ")}${selectedSkills.length > 3 ? "..." : ""}]...`,
+                `2/3 Comparing against 50,000+ active enterprise requisition vectors...`,
+                `3/3 Calculating semantic similarity, salary benchmarks & culture fits...`
+            ];
+
+            let step = 0;
+            const timer = setInterval(() => {
+                if (ticker && scanSteps[step]) {
+                    ticker.innerText = scanSteps[step];
+                }
+                step++;
+                if (step >= scanSteps.length) {
+                    clearInterval(timer);
+                    displayMatchedResults();
+                }
+            }, 650);
+        });
+    }
+
+    // JOB CATALOG DATA FOR REAL-TIME MATCHING
+    const HOME_JOBS = [
+        {
+            id: "job-1",
+            title: "Senior Full Stack Engineer",
+            company: "Microsoft",
+            logo: "M",
+            logoClass: "microsoft",
+            location: "Bangalore, India",
+            workplace: "Hybrid",
+            salary: "₹24–32 LPA",
+            skills: ["Java", "Spring Boot", "React", "TypeScript", "Docker", "Microservices", "Azure", "Kubernetes"],
+            experience: "senior"
+        },
+        {
+            id: "job-5",
+            title: "Backend Java Developer",
+            company: "Razorpay",
+            logo: "R",
+            logoClass: "meta",
+            location: "Bangalore, India",
+            workplace: "Hybrid",
+            salary: "₹16–25 LPA",
+            skills: ["Java", "Spring Boot", "Kafka", "MySQL", "Redis", "REST APIs"],
+            experience: "mid"
+        },
+        {
+            id: "job-2",
+            title: "AI / Machine Learning Engineer",
+            company: "Google",
+            logo: "G",
+            logoClass: "google",
+            location: "Hyderabad, India",
+            workplace: "Hybrid",
+            salary: "₹28–38 LPA",
+            skills: ["Python", "PyTorch", "TensorFlow", "LLMs", "Java", "Docker", "GCP"],
+            experience: "mid"
+        },
+        {
+            id: "job-3",
+            title: "Data Analyst & Insights Lead",
+            company: "Amazon",
+            logo: "a",
+            logoClass: "amazon",
+            location: "Hyderabad, India",
+            workplace: "On-site",
+            salary: "₹14–22 LPA",
+            skills: ["SQL", "Python", "Power BI", "Tableau", "AWS Redshift", "Statistics"],
+            experience: "fresher"
+        },
+        {
+            id: "job-4",
+            title: "Lead UI/UX Designer",
+            company: "Adobe",
+            logo: "A",
+            logoClass: "adobe",
+            location: "Noida, India",
+            workplace: "Remote",
+            salary: "₹18–26 LPA",
+            skills: ["Figma", "Design Systems", "Prototyping", "User Research", "HTML5/CSS3"],
+            experience: "mid"
+        },
+        {
+            id: "job-6",
+            title: "Cloud DevOps & Platform Engineer",
+            company: "Flipkart",
+            logo: "F",
+            logoClass: "microsoft",
+            location: "Bangalore, India",
+            workplace: "Hybrid",
+            salary: "₹20–28 LPA",
+            skills: ["Kubernetes", "Docker", "Terraform", "AWS", "CI/CD", "Linux", "Python"],
+            experience: "senior"
+        }
+    ];
+
+    function calculateJobScore(jobSkills) {
+        const candidateSet = new Set(selectedSkills.map(s => s.toLowerCase()));
+        let matched = 0;
+        jobSkills.forEach(js => {
+            if (candidateSet.has(js.toLowerCase())) matched++;
+        });
+
+        const ratio = matched / Math.max(1, jobSkills.length);
+        const score = Math.round(62 + (ratio * 36));
+        return Math.min(98, Math.max(55, score));
+    }
+
+    function displayMatchedResults() {
+        if (scannerOverlay) scannerOverlay.style.display = "none";
+        matchBtn.disabled = false;
+        matchBtn.innerHTML = `<span>✦</span> AI Match My Opportunities →`;
+
+        const workplacePref = document.getElementById("homeWorkplacePref")?.value || "all";
+        const expPref = document.getElementById("homeExperiencePref")?.value || "all";
+
+        // Score and filter jobs
+        let scored = HOME_JOBS.map(job => {
+            return {
+                ...job,
+                matchScore: calculateJobScore(job.skills)
+            };
+        });
+
+        // Filter if specific mode selected
+        if (workplacePref !== "all") {
+            scored = scored.filter(j => j.workplace.toLowerCase() === workplacePref);
+        }
+        if (expPref !== "all") {
+            scored = scored.filter(j => j.experience === expPref);
+        }
+
+        // Sort by highest match score
+        scored.sort((a, b) => b.matchScore - a.matchScore);
+
+        if (countHeader) {
+            countHeader.innerText = `Found ${scored.length} Positions Aligned with Your Skills`;
+        }
+
+        const candidateSet = new Set(selectedSkills.map(s => s.toLowerCase()));
+        const savedJobs = JSON.parse(localStorage.getItem("jobhub_saved_jobs") || "[]");
+
+        if (jobsList) {
+            if (scored.length === 0) {
+                jobsList.innerHTML = `
+                    <div style="text-align:center; padding:36px; background:var(--dark-card); border-radius:14px;">
+                        <h4 style="color:#fff; margin-bottom:6px;">No exact jobs matched your workplace/experience filter</h4>
+                        <p style="color:var(--text-muted); font-size:0.85rem;">Try setting Mode to 'All Modes' or Experience to 'All Levels'.</p>
+                    </div>
+                `;
+            } else {
+                jobsList.innerHTML = scored.map(job => {
+                    const isSaved = savedJobs.includes(job.title);
+                    return `
+                        <div class="home-job-matched-card" onclick="window.location.href='pages/job-detail.html?id=${job.id}'">
+                            <div class="home-card-top">
+                                <div class="home-company-info">
+                                    <div class="company-logo ${job.logoClass}">${job.logo}</div>
+                                    <div>
+                                        <h4 style="font-size:1.05rem; font-weight:700; color:#fff; margin-bottom:2px;">${job.title}</h4>
+                                        <p style="font-size:0.82rem; color:var(--text-muted);">${job.company} · ${job.location} · <strong>${job.workplace}</strong></p>
+                                    </div>
+                                </div>
+                                <div style="display:flex; align-items:center; gap:10px;">
+                                    <div class="home-match-badge">
+                                        <span>✦</span> ${job.matchScore}% Match
+                                    </div>
+                                    <button class="save-job-btn" style="background:none; border:none; font-size:1.2rem; color:${isSaved ? 'var(--primary-light)' : 'var(--text-muted)'}; cursor:pointer;" data-title="${job.title}">
+                                        ${isSaved ? '♥' : '♡'}
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div style="display:flex; flex-wrap:wrap; gap:6px;">
+                                ${job.skills.map(s => {
+                                    const isMatch = candidateSet.has(s.toLowerCase());
+                                    return `
+                                        <span class="skill-tag ${isMatch ? 'matched' : ''}" style="font-size:0.75rem; padding:4px 10px; ${isMatch ? 'color:#10b981; border-color:rgba(16,185,129,0.4); background:rgba(16,185,129,0.1);' : ''}">
+                                            ${isMatch ? '✓ ' : ''}${s}
+                                        </span>
+                                    `;
+                                }).join('')}
+                            </div>
+
+                            <div class="home-card-bottom">
+                                <div style="font-size:0.88rem; color:#fff; font-weight:700;">
+                                    ${job.salary} <span style="font-size:0.75rem; color:var(--text-muted); font-weight:400;">(Verified Requisition)</span>
+                                </div>
+                                <div style="display:flex; gap:8px;">
+                                    <a href="pages/job-detail.html?id=${job.id}" class="filter-tag" style="padding:6px 14px; font-size:0.8rem;">Details</a>
+                                    <button class="apply-btn" style="padding:6px 16px; font-size:0.8rem;" onclick="handleQuickApply(event, '${job.id}', '${job.title}', '${job.company}')">
+                                        ✦ Easy Apply
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+
+                // Bookmark click handler
+                jobsList.querySelectorAll(".save-job-btn").forEach(btn => {
+                    btn.addEventListener("click", function (e) {
+                        e.stopPropagation();
+                        const title = this.getAttribute("data-title");
+                        let current = JSON.parse(localStorage.getItem("jobhub_saved_jobs") || "[]");
+                        if (current.includes(title)) {
+                            current = current.filter(t => t !== title);
+                            this.innerText = "♡";
+                            this.style.color = "var(--text-muted)";
+                        } else {
+                            current.push(title);
+                            this.innerText = "♥";
+                            this.style.color = "var(--primary-light)";
+                        }
+                        localStorage.setItem("jobhub_saved_jobs", JSON.stringify(current));
+                    });
+                });
+            }
+        }
+
+        if (resultsContainer) {
+            resultsContainer.style.display = "flex";
+            resultsContainer.scrollIntoView({ behavior: "smooth" });
+        }
+    }
+}
+
+// Quick Apply Handler from Homepage
+window.handleQuickApply = function (event, jobId, title, company) {
+    event.stopPropagation();
+    const storedUser = JSON.parse(localStorage.getItem("jobhub_user") || "{}");
+    const candidateName = storedUser.name || prompt("Enter your Name to submit application:") || "Candidate";
+    const candidateEmail = storedUser.email || "applicant@example.com";
+
+    const newApp = {
+        id: "app-" + Date.now(),
+        jobId: jobId,
+        title: title,
+        company: company,
+        appliedDate: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+        status: "applied",
+        statusText: "Application Submitted"
+    };
+
+    const apps = JSON.parse(localStorage.getItem("jobhub_applications") || "[]");
+    apps.unshift(newApp);
+    localStorage.setItem("jobhub_applications", JSON.stringify(apps));
+
+    alert(`🎉 Application transmitted!\n\nRole: ${title}\nCompany: ${company}\nCandidate: ${candidateName}\n\nTrack your review in the Applications pipeline!`);
+};
+
+// ======================================================
+// MODULE: OMNIPRESENT FLOATING AI CHATBOT WIDGET
+// ======================================================
+function initFloatingChatbot() {
+    const launcher = document.getElementById("floatingChatLauncher");
+    const windowEl = document.getElementById("floatingChatWindow");
+    const closeBtn = document.getElementById("floatingChatCloseBtn");
+    const sendBtn = document.getElementById("floatingChatSendBtn");
+    const input = document.getElementById("floatingChatInput");
+    const bodyArea = document.getElementById("floatingChatBody");
+    const chips = document.querySelectorAll(".floating-chip");
+
+    if (!launcher || !windowEl) return;
+
+    launcher.addEventListener("click", () => {
+        const isOpen = windowEl.classList.contains("open");
+        if (isOpen) {
+            windowEl.classList.remove("open");
+        } else {
+            windowEl.classList.add("open");
+            const badge = launcher.querySelector(".launcher-badge");
+            if (badge) badge.style.display = "none";
+            if (input) input.focus();
+        }
+    });
+
+    if (closeBtn) {
+        closeBtn.addEventListener("click", () => windowEl.classList.remove("open"));
+    }
+
+    const BOT_RESPONSES = {
+        "java": "For Java backend positions, top hiring teams focus heavily on Java 21+ Virtual Threads, Spring Boot microservices, distributed caching with Redis, Kafka streaming, and sub-second p99 latency optimization.",
+        "salary": "For ₹30 LPA compensation negotiation: Anchor your research at the 75th percentile of enterprise tech salaries in India. Emphasize architectural milestones, team leadership, and ask for sign-on bonuses or equity refreshes if the fixed salary band has caps.",
+        "ats": "To pass automated ATS resume screeners: Use clean single-column structure, lead every bullet with quantifiable metrics (e.g. 'reduced latency by 35%'), and ensure keywords like Spring Boot, Docker, and Microservices appear in both your Skills list and Experience sections.",
+        "skills": "You can pick skills like Java, React, Docker, and Spring Boot directly from our interactive menu on the homepage, and our neural matcher will calculate real-time compatibility scores for open requisitions!",
+        "default": "I'm your JobHub AI Career Assistant! I can help you find jobs matching your exact skills, practice technical interview questions, optimize your resume for ATS, or script your salary negotiations. What would you like to explore?"
+    };
+
+    function appendUserMessage(text) {
+        if (!bodyArea) return;
+        const msg = document.createElement("div");
+        msg.className = "floating-msg user";
+        msg.innerText = text;
+        bodyArea.appendChild(msg);
+        bodyArea.scrollTop = bodyArea.scrollHeight;
+    }
+
+    function appendAiMessage(fullText) {
+        if (!bodyArea) return;
+        const msg = document.createElement("div");
+        msg.className = "floating-msg ai";
+        bodyArea.appendChild(msg);
+
+        // Typewriter streaming effect
+        let idx = 0;
+        const timer = setInterval(() => {
+            msg.innerText = fullText.slice(0, idx);
+            idx += 3;
+            bodyArea.scrollTop = bodyArea.scrollHeight;
+            if (idx > fullText.length) {
+                msg.innerText = fullText;
+                clearInterval(timer);
+            }
+        }, 15);
+    }
+
+    function handleSend() {
+        if (!input) return;
+        const text = input.value.trim();
+        if (!text) return;
+
+        appendUserMessage(text);
+        input.value = "";
+
+        const lower = text.toLowerCase();
+        let reply = BOT_RESPONSES["default"];
+        if (lower.includes("java") || lower.includes("interview")) reply = BOT_RESPONSES["java"];
+        else if (lower.includes("salary") || lower.includes("lpa") || lower.includes("negotiat")) reply = BOT_RESPONSES["salary"];
+        else if (lower.includes("ats") || lower.includes("resume")) reply = BOT_RESPONSES["ats"];
+        else if (lower.includes("skill") || lower.includes("job") || lower.includes("match")) reply = BOT_RESPONSES["skills"];
+
+        setTimeout(() => {
+            appendAiMessage(reply);
+        }, 500);
+    }
+
+    if (sendBtn) sendBtn.addEventListener("click", handleSend);
+    if (input) {
+        input.addEventListener("keypress", (e) => {
+            if (e.key === "Enter") {
+                e.preventDefault();
+                handleSend();
+            }
+        });
+    }
+
+    chips.forEach(chip => {
+        chip.addEventListener("click", function () {
+            if (input) {
+                input.value = this.innerText;
+                handleSend();
+            }
+        });
+    });
+}

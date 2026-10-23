@@ -217,4 +217,101 @@ document.addEventListener("DOMContentLoaded", function () {
             toast.style.transform = "translateY(10px)";
         }, 3000);
     }
+
+    // 8. FLOATING CHATBOT CONTROLLER (IF PRESENT)
+    const launcher = document.getElementById("floatingChatLauncher");
+    const windowEl = document.getElementById("floatingChatWindow");
+    const closeBtn = document.getElementById("floatingChatCloseBtn");
+    const sendBtn = document.getElementById("floatingChatSendBtn");
+    const input = document.getElementById("floatingChatInput");
+    const bodyArea = document.getElementById("floatingChatBody");
+    const chips = document.querySelectorAll(".floating-chip");
+
+    if (launcher && windowEl) {
+        launcher.addEventListener("click", () => {
+            const isOpen = windowEl.classList.contains("open");
+            if (isOpen) {
+                windowEl.classList.remove("open");
+            } else {
+                windowEl.classList.add("open");
+                const badge = launcher.querySelector(".launcher-badge");
+                if (badge) badge.style.display = "none";
+                if (input) input.focus();
+            }
+        });
+
+        if (closeBtn) closeBtn.addEventListener("click", () => windowEl.classList.remove("open"));
+
+        const BOT_RESPONSES = {
+            "java": "For Java backend positions, recruiters focus heavily on Java 21+ Virtual Threads, Spring Boot microservices, distributed caching with Redis, Kafka streaming, and sub-second p99 latency optimization.",
+            "salary": "For ₹30 LPA compensation negotiation: Anchor your research at the 75th percentile of enterprise tech salaries in India. Emphasize architectural milestones, team leadership, and ask for sign-on bonuses or equity refreshes if the fixed salary band has caps.",
+            "ats": "To pass automated ATS resume screeners: Use clean single-column structure, lead every bullet with quantifiable metrics (e.g. 'reduced latency by 35%'), and ensure keywords like Spring Boot, Docker, and Microservices appear in both your Skills list and Experience sections.",
+            "default": "I'm your JobHub AI Career Assistant! I can help you find jobs matching your exact skills, practice technical interview questions, optimize your resume for ATS, or script your salary negotiations. What would you like to explore?"
+        };
+
+        function appendUserMessage(text) {
+            if (!bodyArea) return;
+            const msg = document.createElement("div");
+            msg.className = "floating-msg user";
+            msg.innerText = text;
+            bodyArea.appendChild(msg);
+            bodyArea.scrollTop = bodyArea.scrollHeight;
+        }
+
+        function appendAiMessage(fullText) {
+            if (!bodyArea) return;
+            const msg = document.createElement("div");
+            msg.className = "floating-msg ai";
+            bodyArea.appendChild(msg);
+
+            let idx = 0;
+            const timer = setInterval(() => {
+                msg.innerText = fullText.slice(0, idx);
+                idx += 3;
+                bodyArea.scrollTop = bodyArea.scrollHeight;
+                if (idx > fullText.length) {
+                    msg.innerText = fullText;
+                    clearInterval(timer);
+                }
+            }, 15);
+        }
+
+        function handleSend() {
+            if (!input) return;
+            const text = input.value.trim();
+            if (!text) return;
+
+            appendUserMessage(text);
+            input.value = "";
+
+            const lower = text.toLowerCase();
+            let reply = BOT_RESPONSES["default"];
+            if (lower.includes("java") || lower.includes("interview")) reply = BOT_RESPONSES["java"];
+            else if (lower.includes("salary") || lower.includes("lpa") || lower.includes("negotiat")) reply = BOT_RESPONSES["salary"];
+            else if (lower.includes("ats") || lower.includes("resume")) reply = BOT_RESPONSES["ats"];
+
+            setTimeout(() => {
+                appendAiMessage(reply);
+            }, 500);
+        }
+
+        if (sendBtn) sendBtn.addEventListener("click", handleSend);
+        if (input) {
+            input.addEventListener("keypress", (e) => {
+                if (e.key === "Enter") {
+                    e.preventDefault();
+                    handleSend();
+                }
+            });
+        }
+
+        chips.forEach(chip => {
+            chip.addEventListener("click", function () {
+                if (input) {
+                    input.value = this.innerText;
+                    handleSend();
+                }
+            });
+        });
+    }
 });

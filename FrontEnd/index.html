@@ -94,126 +94,118 @@
 
         <section class="hero">
 
-
-            <div class="hero-content">
-
+            <div class="hero-content" style="max-width: 900px;">
 
                 <!-- AI BADGE -->
-
                 <div class="ai-badge">
-
-                    ✨ AI-Powered Job Matching
-
+                    ✦ REAL-TIME NEURAL AI JOB FINDER
                 </div>
-
 
                 <!-- MAIN HEADING -->
-
                 <h1>
-
-                    Find a job that
-
-                    <span>fits you.</span>
-
+                    Find jobs matched to
+                    <span>your exact skills.</span>
                 </h1>
 
-
                 <!-- DESCRIPTION -->
-
                 <p>
-
-                    Discover opportunities tailored to your
-                    skills, experience and career goals with
-                    intelligent AI-powered job matching.
-
+                    Select your technical competencies from the menu below or enter custom tech stack. Our neural algorithm scans enterprise requisitions and calculates your real-time compatibility score.
                 </p>
 
-
                 <!-- ==================================================
-                     SEARCH BOX
+                     AI SKILLS FINDER CARD
                      ================================================== -->
+                <div class="ai-finder-hero-wrapper">
+                    <div class="ai-skills-finder-card">
+                        <div class="finder-header-row">
+                            <div class="finder-title-group">
+                                <h3><span>🧠</span> Step 1: Select Your Skills from the Menu</h3>
+                                <p>Click any skill chip below to add it to your candidate profile</p>
+                            </div>
 
-                <div class="search-box">
-
-
-                    <!-- JOB SEARCH -->
-
-                    <div class="search-field">
-
-                        <span>⌕</span>
-
-                        <div>
-
-                            <small>WHAT</small>
-
-                            <input
-                                type="text"
-                                placeholder="Job title, skills or keywords"
-                            >
-
+                            <!-- Category Tabs -->
+                            <div class="skill-category-tabs" id="skillCategoryTabs">
+                                <button class="category-tab-btn active" data-cat="all">⚡ All Tech</button>
+                                <button class="category-tab-btn" data-cat="backend">☕ Backend</button>
+                                <button class="category-tab-btn" data-cat="frontend">💻 Frontend</button>
+                                <button class="category-tab-btn" data-cat="cloud">☁️ Cloud & DevOps</button>
+                                <button class="category-tab-btn" data-cat="ai">🧠 AI & Data</button>
+                            </div>
                         </div>
 
-                    </div>
-
-
-                    <div class="search-divider"></div>
-
-
-                    <!-- LOCATION SEARCH -->
-
-                    <div class="search-field">
-
-                        <span>⌖</span>
-
-                        <div>
-
-                            <small>WHERE</small>
-
-                            <input
-                                type="text"
-                                placeholder="City or location"
-                            >
-
+                        <!-- Skills Menu Chips Grid -->
+                        <div class="skills-menu-container" id="homeSkillsMenu">
+                            <!-- Populated dynamically by script.js with rich tech tags -->
                         </div>
 
+                        <!-- Active Selected Skills Tray -->
+                        <div class="selected-tray-wrapper">
+                            <div class="selected-tray-header">
+                                <span>✦ ACTIVE SKILLS PROFILE (<strong id="selectedSkillsCount">0</strong> SELECTED)</span>
+                                <span id="clearSelectedSkillsBtn" style="color:var(--text-muted); cursor:pointer; font-size:0.75rem;">Clear All</span>
+                            </div>
+
+                            <div class="selected-skills-tray" id="selectedSkillsTray">
+                                <div class="custom-skill-input-box">
+                                    <span style="color:var(--primary-light);">+</span>
+                                    <input type="text" id="customSkillInput" placeholder="Type custom skill (e.g. Solidity, Kafka) & hit Enter">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Preferences & Action Bar -->
+                        <div class="finder-controls-row">
+                            <div class="finder-select-group">
+                                <span>📍 Mode:</span>
+                                <select id="homeWorkplacePref">
+                                    <option value="all">All Modes</option>
+                                    <option value="remote">Remote Only</option>
+                                    <option value="hybrid">Hybrid</option>
+                                    <option value="on-site">On-site</option>
+                                </select>
+                            </div>
+
+                            <div class="finder-select-group">
+                                <span>💼 Experience:</span>
+                                <select id="homeExperiencePref">
+                                    <option value="all">All Levels</option>
+                                    <option value="fresher">Fresher (0–1 yrs)</option>
+                                    <option value="mid">Mid-Level (2–4 yrs)</option>
+                                    <option value="senior">Senior (5+ yrs)</option>
+                                </select>
+                            </div>
+
+                            <button class="btn-ai-match-jobs" id="btnHomeAiMatch">
+                                <span>✦</span> AI Match My Opportunities →
+                            </button>
+                        </div>
                     </div>
 
+                    <!-- Neural Scanner Moving Overlay (Shows while matching) -->
+                    <div class="home-neural-scanner" id="homeNeuralScanner">
+                        <div class="home-radar-box">
+                            <div class="home-radar-beam"></div>
+                            <span style="color:#fff; font-size:1.4rem;">✦</span>
+                        </div>
+                        <h4 style="color:#fff; font-size:1.1rem; margin-bottom:4px;">Neural Semantic Alignment</h4>
+                        <p class="home-scanner-ticker" id="homeScannerTicker">1/3 Vectorizing selected skills...</p>
+                    </div>
 
-                    <!-- SEARCH BUTTON -->
+                    <!-- Matched Results Section (Appears after matching) -->
+                    <div class="home-matched-results" id="homeMatchedResultsContainer">
+                        <div class="results-header-bar">
+                            <div>
+                                <span style="font-size:0.75rem; letter-spacing:0.1em; color:var(--primary-light); font-weight:700;">✦ AI RECOMMENDED POSITIONS</span>
+                                <h3 id="homeMatchedCountHeader">Found 4 High-Compatibility Roles</h3>
+                            </div>
+                            <a href="pages/job.html" style="font-size:0.85rem; color:var(--primary-light); font-weight:600;">
+                                View All 20+ Jobs in Full Catalog →
+                            </a>
+                        </div>
 
-                    <button class="search-btn">
-
-                        Search Jobs
-
-                    </button>
-
-                </div>
-
-
-                <!-- ==================================================
-                     POPULAR SEARCHES
-                     ================================================== -->
-
-                <div class="popular-searches">
-
-                    <span>Popular:</span>
-
-                    <a href="#">
-                        Software Engineer
-                    </a>
-
-                    <a href="#">
-                        Data Analyst
-                    </a>
-
-                    <a href="#">
-                        UI/UX Designer
-                    </a>
-
-                    <a href="#">
-                        Product Manager
-                    </a>
-
+                        <!-- Dynamic Matched Jobs List -->
+                        <div id="homeMatchedJobsList" style="display:flex; flex-direction:column; gap:14px;"></div>
+                    </div>
                 </div>
 
             </div>
@@ -634,11 +626,57 @@
 
 
     <!-- ==================================================
+         FLOATING AI CAREER CHATBOT WIDGET
+         ================================================== -->
+    <div class="floating-chat-container" id="jobhubFloatingChat">
+        <!-- Floating Expandable Chat Window -->
+        <div class="floating-chat-window" id="floatingChatWindow">
+            <div class="floating-chat-header">
+                <div class="floating-bot-info">
+                    <div class="floating-bot-avatar">✦</div>
+                    <div>
+                        <strong style="color:#fff; font-size:0.88rem; display:block;">JobHub AI Assistant</strong>
+                        <span style="color:#10b981; font-size:0.7rem;">● Online · Ready to Help</span>
+                    </div>
+                </div>
+                <div class="floating-chat-actions">
+                    <button id="floatingChatCloseBtn" title="Close Chat">✕</button>
+                </div>
+            </div>
+
+            <!-- Messages Stream Area -->
+            <div class="floating-chat-body" id="floatingChatBody">
+                <div class="floating-msg ai">
+                    ✦ Hello! I'm your JobHub AI Career Assistant. Tell me your skills or ask me about tech job matching, interview prep, salary negotiation, or resume tips!
+                </div>
+            </div>
+
+            <!-- Suggestion Quick Chips -->
+            <div class="floating-starters-row">
+                <div class="floating-chip">🎯 Match jobs for Java & React</div>
+                <div class="floating-chip">💼 Salary tips for ₹30 LPA</div>
+                <div class="floating-chip">📝 How to pass ATS test?</div>
+                <div class="floating-chip">🚀 Java interview questions</div>
+            </div>
+
+            <!-- Input Bar -->
+            <div class="floating-chat-input-bar">
+                <input type="text" id="floatingChatInput" placeholder="Ask AI anything about jobs..." autocomplete="off">
+                <button class="floating-chat-send" id="floatingChatSendBtn">➤</button>
+            </div>
+        </div>
+
+        <!-- Floating Launch Orb Button -->
+        <div class="floating-chat-launcher" id="floatingChatLauncher" title="Ask JobHub AI Career Coach">
+            <span>✦</span>
+            <div class="launcher-badge">1</div>
+        </div>
+    </div>
+
+    <!-- ==================================================
          JAVASCRIPT
          ================================================== -->
-
     <script src="js/script.js"></script>
-
 
 </body>
 
