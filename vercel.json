@@ -1,0 +1,23 @@
+{
+  "version": 2,
+  "cleanUrls": false,
+  "rewrites": [
+    { "source": "/", "destination": "/FrontEnd/index.html" },
+    { "source": "/index.html", "destination": "/FrontEnd/index.html" },
+    { "source": "/css/:path*", "destination": "/FrontEnd/css/:path*" },
+    { "source": "/js/:path*", "destination": "/FrontEnd/js/:path*" },
+    { "source": "/pages/:path*", "destination": "/FrontEnd/pages/:path*" },
+    { "source": "/dashboard", "destination": "/FrontEnd/pages/dashboard.html" },
+    { "source": "/jobs", "destination": "/FrontEnd/pages/job.html" },
+    { "source": "/resume-analyzer", "destination": "/FrontEnd/pages/resume-analyzer.html" },
+    { "source": "/ai-matcher", "destination": "/FrontEnd/pages/ai-matcher.html" },
+    { "source": "/skill-gap", "destination": "/FrontEnd/pages/skill-gap.html" },
+    { "source": "/career-assistant", "destination": "/FrontEnd/pages/career-assistant.html" },
+    { "source": "/login", "destination": "/FrontEnd/pages/login.html" },
+    { "source": "/signup", "destination": "/FrontEnd/pages/signup.html" },
+    { "source": "/profile", "destination": "/FrontEnd/pages/profile.html" },
+    { "source": "/companies", "destination": "/FrontEnd/pages/companies.html" },
+    { "source": "/application", "destination": "/FrontEnd/pages/application.html" },
+    { "source": "/saved-jobs", "destination": "/FrontEnd/pages/saved-jobs.html" }
+  ]
+}
