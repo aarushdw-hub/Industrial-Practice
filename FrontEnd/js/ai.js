@@ -906,45 +906,112 @@ function getBrevityVerdict(words) {
     return { text: `⚠ Too brief (${words} words). Add detailed project achievements`, color: "var(--warning)" };
 }
 
-// Google X-Y-Z Formula Bullet Optimizer
+// Google X-Y-Z Formula Bullet Optimizer (Accomplished [X] as measured by [Y], by doing [Z])
 function generateOptimizedBullet(raw) {
-    const rawLower = raw.toLowerCase();
+    let text = raw.trim();
+    // Clean leading bullet marks, numbers, dashes
+    text = text.replace(/^[•\-\*▪►\d+\.\s]+/, '').trim();
 
-    if (rawLower.includes("java") || rawLower.includes("spring") || rawLower.includes("backend") || rawLower.includes("microservice") || rawLower.includes("api")) {
-        return {
-            bullet: "Architected and deployed high-throughput backend microservices handling 2.4M+ daily API transactions in Java & Spring Boot, reducing p99 latency by 34% and accelerating cloud deployment cycles by 40%.",
-            action: "Architected scalable backend microservices",
-            metric: "2.4M+ daily transactions, 34% p99 latency reduction",
-            method: "Java, Spring Boot & Distributed Caching"
-        };
-    } else if (rawLower.includes("react") || rawLower.includes("frontend") || rawLower.includes("ui") || rawLower.includes("web") || rawLower.includes("javascript")) {
-        return {
-            bullet: "Engineered modular React.js & TypeScript component architecture utilized across 14 enterprise modules, elevating client session engagement by 28% and decreasing core page render time by 42%.",
-            action: "Engineered modular frontend component architecture",
-            metric: "28% engagement increase, 42% faster render time",
-            method: "React.js, TypeScript & Virtual DOM optimization"
-        };
-    } else if (rawLower.includes("database") || rawLower.includes("sql") || rawLower.includes("mongo") || rawLower.includes("query") || rawLower.includes("postgres")) {
-        return {
-            bullet: "Optimized distributed relational database indices and Redis caching layer across 500K+ concurrent customer queries, reducing database CPU utilization by 45% and slashing query execution time from 1.2s to 180ms.",
-            action: "Optimized database indices and caching layer",
-            metric: "45% lower CPU utilization, query latency from 1.2s to 180ms",
-            method: "PostgreSQL & Redis Caching"
-        };
-    } else if (rawLower.includes("cloud") || rawLower.includes("aws") || rawLower.includes("docker") || rawLower.includes("devops") || rawLower.includes("pipeline")) {
-        return {
-            bullet: "Spearheaded containerized CI/CD deployment pipelines using Docker, Kubernetes, and AWS, achieving 99.99% service availability and cutting release cycle turnaround time by 55%.",
-            action: "Spearheaded containerized CI/CD deployment pipelines",
-            metric: "99.99% availability, 55% faster release cycles",
-            method: "Docker, Kubernetes & AWS Infrastructure"
-        };
+    // Strip weak passive or redundant starter verbs so they don't stutter with the action verb
+    const starterVerbs = /^(worked on|helped (with|to)|responsible for|assisted (with|in)|did|tasked with|handled|was in charge of|involved in|made a|built a|created a|designed a|engineered a|developed a|worked with|made|built|created|designed|engineered|developed|wrote|managed|reduced|optimized|improved|implemented)\s+/i;
+    let coreTask = text.replace(starterVerbs, '').trim();
+    if (!coreTask) coreTask = text;
+
+    // Smooth common informal resume phrasings into executive terminology
+    coreTask = coreTask
+        .replace(/\bfixed bugs in\b/gi, "remediated critical production defects across")
+        .replace(/\bfixed bugs\b/gi, "resolved production defects")
+        .replace(/\bworked with\b/gi, "implemented solutions utilizing")
+        .replace(/\bmade a\b/gi, "architected a")
+        .replace(/\bbuilt a\b/gi, "engineered a")
+        .replace(/\bcreated a\b/gi, "developed a")
+        .replace(/\bhelped with\b/gi, "collaborated on")
+        .replace(/\blot of\b/gi, "high-volume")
+        .replace(/\bhandling\b/gi, "orchestrating");
+
+    // Clean initial capitalization
+    const coreClean = coreTask.charAt(0).toLowerCase() + coreTask.slice(1);
+    const lower = text.toLowerCase();
+
+    // Detect technical keywords in the user's input
+    const detectedTechs = [];
+    const techCatalog = [
+        "Java", "Spring Boot", "Spring", "Python", "Django", "FastAPI", "Flask",
+        "React.js", "React", "Angular", "Vue", "Next.js", "TypeScript", "JavaScript",
+        "Node.js", "Express.js", "Microservices", "REST APIs", "GraphQL", "gRPC",
+        "PostgreSQL", "MySQL", "MongoDB", "Redis", "Kafka", "Docker", "Kubernetes",
+        "AWS", "Azure", "GCP", "CI/CD", "Git", "SQL", "HTML5", "CSS3", "Tailwind CSS",
+        "Terraform", "JUnit", "WebSockets"
+    ];
+
+    for (const t of techCatalog) {
+        const escaped = t.replace(/[.+*?^${}()|[\]\\]/g, '\\$&');
+        if (new RegExp("\\b" + escaped + "\\b", "i").test(text)) {
+            if (!detectedTechs.includes(t)) detectedTechs.push(t);
+        }
     }
 
+    const techString = detectedTechs.length > 0 ? detectedTechs.join(", ") : "modern architectural standards";
+
+    // Select dynamic executive action verb tailored to the activity
+    let actionVerb = "Architected and deployed";
+    if (/design|ui|ux|frontend|react|css|html|figma|tailwind|client/i.test(lower)) {
+        actionVerb = "Engineered and deployed";
+    } else if (/test|qa|coverage|unit\s*test|junit/i.test(lower)) {
+        actionVerb = "Spearheaded automated testing frameworks and quality verification for";
+    } else if (/bug|fix|defect|issue|error|remediat/i.test(lower)) {
+        actionVerb = "Architected and enhanced high-resiliency";
+    } else if (/database|sql|postgres|mysql|redis|mongo|data|query|schema/i.test(lower)) {
+        actionVerb = "Optimized data architecture and throughput for";
+    } else if (/cloud|aws|docker|k8s|kubernetes|devops|ci\/cd|pipeline|deploy/i.test(lower)) {
+        actionVerb = "Orchestrated containerized infrastructure and automated pipelines for";
+    } else if (/manage|lead|mentor|agile|scrum|team|architect/i.test(lower)) {
+        actionVerb = "Spearheaded technical leadership and delivery of";
+    } else if (/api|microservice|backend|service|server|java|spring|node|endpoint/i.test(lower)) {
+        actionVerb = "Architected and scaled robust";
+    }
+
+    // Select context-aware quantifiable impact metrics
+    let metricPhrase = "increasing operational throughput by 34% and cutting turnaround time by 40%";
+    let metricBrief = "34% throughput increase, 40% faster delivery";
+    let methodBrief = `${techString} with automated CI/CD validation`;
+
+    if (/latency|speed|performance|fast|p99|response|slow/i.test(lower)) {
+        metricPhrase = "reducing p99 latency by 38% and accelerating response times from 1.4s to 210ms";
+        metricBrief = "38% p99 latency reduction, sub-250ms response";
+        methodBrief = `${techString} & caching layer optimization`;
+    } else if (/bug|fix|defect|issue|error|crash|vulnerability|security/i.test(lower)) {
+        metricPhrase = "resolving 45+ critical production defects and elevating service availability to 99.98%";
+        metricBrief = "45+ defects eliminated, 99.98% service uptime";
+        methodBrief = `Automated regression suites & ${techString}`;
+    } else if (/scale|user|traffic|load|volume|million|transaction|request|concurrent/i.test(lower)) {
+        metricPhrase = "scaling platform capacity to support 250K+ daily active users with 99.99% availability";
+        metricBrief = "250K+ daily active users, 99.99% availability";
+        methodBrief = `Distributed architecture & ${techString}`;
+    } else if (/ui|ux|frontend|client|react|css|engagement|mobile|component/i.test(lower)) {
+        metricPhrase = "elevating customer session engagement by 28% and achieving a 95+ Core Web Vitals score";
+        metricBrief = "28% higher engagement, 95+ Core Web Vitals score";
+        methodBrief = `Component modularity & ${techString}`;
+    } else if (/database|query|sql|postgres|mysql|mongo|redis|cache/i.test(lower)) {
+        metricPhrase = "decreasing database CPU load by 42% and optimizing query execution times by 55%";
+        metricBrief = "42% CPU load reduction, 55% query speedup";
+        methodBrief = `Index tuning & distributed caching in ${techString}`;
+    } else if (/pipeline|ci\/cd|deploy|docker|release|build|automation/i.test(lower)) {
+        metricPhrase = "cutting deployment turnaround from 3 days to under 45 minutes with zero production rollbacks";
+        metricBrief = "Deployment time cut from 3 days to <45 min, 0 rollbacks";
+        methodBrief = `Containerized automation & ${techString}`;
+    }
+
+    // Build the tailored Google X-Y-Z bullet
+    let generatedBullet = `${actionVerb} ${coreClean}, ${metricPhrase}, leveraging ${techString}.`;
+    generatedBullet = generatedBullet.replace(/\s+,/g, ',').replace(/\s{2,}/g, ' ').replace(/\.{2,}/g, '.');
+    generatedBullet = generatedBullet.charAt(0).toUpperCase() + generatedBullet.slice(1);
+
     return {
-        bullet: `Spearheaded end-to-end design and implementation of ${raw.replace(/^worked on\s+/i, "")}, driving a 32% increase in system efficiency and impacting 150K+ end-users with zero reported production downtime.`,
-        action: "Spearheaded end-to-end implementation",
-        metric: "32% efficiency increase, 150K+ users impacted",
-        method: "Clean Architecture & Rigorous Automated Testing"
+        bullet: generatedBullet,
+        action: `${actionVerb} ${coreClean}`,
+        metric: metricBrief,
+        method: methodBrief
     };
 }
 

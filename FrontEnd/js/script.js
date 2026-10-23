@@ -594,13 +594,36 @@ function initFloatingChatbot() {
         closeBtn.addEventListener("click", () => windowEl.classList.remove("open"));
     }
 
-    const BOT_RESPONSES = {
-        "java": "For Java backend positions, top hiring teams focus heavily on Java 21+ Virtual Threads, Spring Boot microservices, distributed caching with Redis, Kafka streaming, and sub-second p99 latency optimization.",
-        "salary": "For ₹30 LPA compensation negotiation: Anchor your research at the 75th percentile of enterprise tech salaries in India. Emphasize architectural milestones, team leadership, and ask for sign-on bonuses or equity refreshes if the fixed salary band has caps.",
-        "ats": "To pass automated ATS resume screeners: Use clean single-column structure, lead every bullet with quantifiable metrics (e.g. 'reduced latency by 35%'), and ensure keywords like Spring Boot, Docker, and Microservices appear in both your Skills list and Experience sections.",
-        "skills": "You can pick skills like Java, React, Docker, and Spring Boot directly from our interactive menu on the homepage, and our neural matcher will calculate real-time compatibility scores for open requisitions!",
-        "default": "I'm your JobHub AI Career Assistant! I can help you find jobs matching your exact skills, practice technical interview questions, optimize your resume for ATS, or script your salary negotiations. What would you like to explore?"
-    };
+    function getAiChatResponse(query) {
+        const q = query.toLowerCase();
+
+        if (q.includes("java") || q.includes("spring") || q.includes("backend")) {
+            return "For senior Java & Backend opportunities: Enterprise hiring bars emphasize Java 21+ Virtual Threads, Spring Boot microservices, high-throughput distributed caching (Redis), asynchronous streaming via Kafka, and sub-100ms p99 latency optimization. Be prepared for live system design and concurrency troubleshooting rounds.";
+        }
+        if (q.includes("python") || q.includes("django") || q.includes("fastapi") || q.includes("data") || q.includes("ml") || q.includes("ai")) {
+            return "For Python & AI/ML opportunities: Top teams test expertise in FastAPI asynchronous endpoints, PostgreSQL query planning, Celery task workers, PyTorch/TensorFlow model inference optimization, and vectorized embeddings with Pinecone or pgvector.";
+        }
+        if (q.includes("react") || q.includes("frontend") || q.includes("ui") || q.includes("next") || q.includes("javascript") || q.includes("typescript")) {
+            return "For Frontend & Full-Stack roles: High-paying roles focus on Next.js App Router, React Server Components (RSC), TypeScript strict type architectures, State Management (Zustand/Redux Toolkit), and Core Web Vitals optimization (LCP under 2.5s).";
+        }
+        if (q.includes("docker") || q.includes("kubernetes") || q.includes("cloud") || q.includes("aws") || q.includes("devops") || q.includes("ci/cd")) {
+            return "For Cloud & DevOps roles: Key interview benchmarks include multi-stage Docker builds, Kubernetes Pod autoscaling (HPA), Terraform Infrastructure as Code (IaC), AWS multi-AZ architectures, and zero-downtime blue/green deployment pipelines.";
+        }
+        if (q.includes("salary") || q.includes("lpa") || q.includes("negotiat") || q.includes("offer") || q.includes("compensation")) {
+            return "Salary Negotiation Strategy for Tech: 1) Anchor your expectation around the 75th percentile of industry benchmarks (₹28–36 LPA for senior engineers). 2) Lead with past business impact metrics (e.g. latency slashed by 35%, 1M+ active users supported). 3) If fixed base salary bands are strict, negotiate sign-on bonuses, performance milestones, or accelerated ESOP vesting schedules.";
+        }
+        if (q.includes("ats") || q.includes("resume") || q.includes("cv") || q.includes("scanner")) {
+            return "To achieve a 90+ ATS Score: 1) Keep a clean single-column format without nested tables or images. 2) Structure every bullet with Google's X-Y-Z formula: 'Accomplished [X] as measured by [Y], by doing [Z]'. 3) Ensure skills like Spring Boot, Docker, and Microservices appear in both your Skills list and Experience bullet points.";
+        }
+        if (q.includes("interview") || q.includes("system design") || q.includes("prep") || q.includes("question")) {
+            return "Technical Interview Preparation: 1) System Design: Practice designing URL shorteners, distributed rate limiters, notification services, and newsfeeds. 2) Data Structures: Master HashMaps, Trees, Graphs, and Sliding Window techniques. 3) Behavioral: Prepare 3 STAR stories highlighting conflict resolution, production incident response, and cross-team leadership.";
+        }
+        if (q.includes("skill") || q.includes("match") || q.includes("job") || q.includes("apply")) {
+            return "You can select your skills directly from our interactive Skill Menu on the homepage, and our neural matcher will calculate real-time compatibility scores for open requisitions across Google, Microsoft, Amazon, and top startups!";
+        }
+
+        return `Great question regarding "${query}". For tech professionals targeting Tier-1 opportunities, our AI recommends: 1) Tailoring your resume bullets with quantified scale metrics (e.g. throughput, latency, revenue). 2) Verifying ATS keyword density on our Resume Analyzer page. 3) Practicing system design architecture for high-concurrency systems. Would you like specific tips on interview prep, salary benchmarks, or job matching?`;
+    }
 
     function appendUserMessage(text) {
         if (!bodyArea) return;
@@ -621,13 +644,13 @@ function initFloatingChatbot() {
         let idx = 0;
         const timer = setInterval(() => {
             msg.innerText = fullText.slice(0, idx);
-            idx += 3;
+            idx += 4;
             bodyArea.scrollTop = bodyArea.scrollHeight;
             if (idx > fullText.length) {
                 msg.innerText = fullText;
                 clearInterval(timer);
             }
-        }, 15);
+        }, 12);
     }
 
     function handleSend() {
@@ -638,16 +661,10 @@ function initFloatingChatbot() {
         appendUserMessage(text);
         input.value = "";
 
-        const lower = text.toLowerCase();
-        let reply = BOT_RESPONSES["default"];
-        if (lower.includes("java") || lower.includes("interview")) reply = BOT_RESPONSES["java"];
-        else if (lower.includes("salary") || lower.includes("lpa") || lower.includes("negotiat")) reply = BOT_RESPONSES["salary"];
-        else if (lower.includes("ats") || lower.includes("resume")) reply = BOT_RESPONSES["ats"];
-        else if (lower.includes("skill") || lower.includes("job") || lower.includes("match")) reply = BOT_RESPONSES["skills"];
-
+        const reply = getAiChatResponse(text);
         setTimeout(() => {
             appendAiMessage(reply);
-        }, 500);
+        }, 350);
     }
 
     if (sendBtn) sendBtn.addEventListener("click", handleSend);
