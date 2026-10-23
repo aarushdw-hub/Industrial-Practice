@@ -116,19 +116,32 @@
 
             <!-- SCANNER DOCUMENT CONTAINER WITH LASER LINE -->
             <section class="scanner-visual-container" style="align-items:stretch;">
+                <div class="resume-tabs">
+                    <button class="resume-tab-btn active" id="tabBtnUpload">📁 Upload Document (PDF / DOCX / TXT)</button>
+                    <button class="resume-tab-btn" id="tabBtnPaste">✍️ Paste Resume Text</button>
+                </div>
+
                 <div class="scan-doc-preview">
                     <!-- Laser Moving Line -->
                     <div class="scan-laser-line" id="scanLaserLine"></div>
 
-                    <div class="file-dropzone" id="resumeDropzone" style="margin-bottom:14px;">
-                        <span style="font-size:2.2rem; display:block; margin-bottom:6px;">📑</span>
-                        <strong style="color:#fff; font-size:0.95rem; display:block;" id="dropzoneFileName">Alex_Morgan_Resume_2026.pdf (Ready to Scan)</strong>
-                        <span style="color:var(--text-muted); font-size:0.75rem;">Click to upload a new resume or drop PDF/DOCX file here</span>
-                        <input type="file" id="resumeFilePicker" style="display:none;" accept=".pdf,.doc,.docx">
+                    <!-- File Dropzone View -->
+                    <div id="uploadPanel">
+                        <div class="file-dropzone" id="resumeDropzone" style="margin-bottom:14px; cursor:pointer;">
+                            <span style="font-size:2.2rem; display:block; margin-bottom:6px;">📑</span>
+                            <strong style="color:#fff; font-size:0.95rem; display:block;" id="dropzoneFileName">Click to upload your resume (PDF, DOCX, TXT)</strong>
+                            <span style="color:var(--text-muted); font-size:0.75rem;" id="dropzoneFileSub">Drag & drop your file here or click to browse</span>
+                            <input type="file" id="resumeFilePicker" style="display:none;" accept=".pdf,.doc,.docx,.txt,.rtf,.md">
+                        </div>
                     </div>
 
-                    <p style="font-size:0.8rem; color:var(--text-muted); text-align:center;">
-                        ✦ AI parses contact info, bullet points, tech keywords, and action verbs.
+                    <!-- Paste Text View (Hidden initially) -->
+                    <div id="pastePanel" style="display:none; margin-bottom:14px;">
+                        <textarea id="resumeTextInput" placeholder="Paste your resume content here (plain text, markdown, or copied text)..." style="width:100%; height:140px; background:rgba(255,255,255,0.03); border:1px solid var(--border-subtle); border-radius:8px; padding:12px; color:#fff; font-size:0.85rem; font-family:inherit; resize:vertical;"></textarea>
+                    </div>
+
+                    <p style="font-size:0.8rem; color:var(--text-muted); text-align:center;" id="scannerStatusTip">
+                        ✦ AI parses contact info, bullet points, tech keywords, and action verbs in real-time.
                     </p>
                 </div>
 
@@ -140,20 +153,34 @@
             </section>
 
             <!-- SCAN RESULTS SECTION -->
-            <div id="resumeScanResults" style="display:flex; flex-direction:column; gap:24px;">
+            <div id="resumeScanResults" style="display:none; flex-direction:column; gap:24px;">
+                <!-- CANDIDATE SUMMARY BANNER -->
+                <div class="candidate-summary-banner" id="candidateBanner">
+                    <div>
+                        <span class="card-kicker" style="margin-bottom:2px;">✦ PARSED CANDIDATE IDENTITY</span>
+                        <h2 style="font-size:1.4rem; color:#fff; margin:0;" id="candName">Candidate Name</h2>
+                    </div>
+                    <div class="candidate-meta-badges">
+                        <span class="candidate-badge" id="candEmailBadge">✉ <span id="candEmail">Not detected</span></span>
+                        <span class="candidate-badge" id="candPhoneBadge">📞 <span id="candPhone">Not detected</span></span>
+                        <span class="candidate-badge" id="candWordsBadge">📄 <span id="candWords">0 words</span></span>
+                        <span class="candidate-badge" id="candSkillsBadge">⚡ <span id="candSkillsCount">0 skills</span></span>
+                    </div>
+                </div>
+
                 <!-- TOP METRIC CARDS -->
                 <div style="display:grid; grid-template-columns: 280px 1fr; gap:24px; align-items:stretch;">
                     <!-- ATS Score Dial -->
                     <div class="ai-match-breakdown-card" style="align-items:center; justify-content:center; text-align:center;">
                         <span class="card-kicker">OVERALL ATS RATING</span>
-                        <div class="match-circle-meter" style="--percent: 88; width:130px; height:130px;">
+                        <div class="match-circle-meter" id="atsScoreDial" style="--percent: 88; width:130px; height:130px;">
                             <div class="match-circle-inner" style="width:104px; height:104px;">
-                                <strong style="font-size:1.8rem; color:var(--success);">88</strong>
+                                <strong id="atsOverallScore" style="font-size:1.8rem; color:var(--success);">88</strong>
                                 <span style="font-size:0.7rem; color:var(--text-muted);">OUT OF 100</span>
                             </div>
                         </div>
-                        <strong style="color:#fff; font-size:1rem; margin-top:8px;">Tier 1 Interview Ready</strong>
-                        <p style="color:var(--text-secondary); font-size:0.8rem;">Your resume passes 94% of enterprise ATS parsers.</p>
+                        <strong id="atsTierTitle" style="color:#fff; font-size:1rem; margin-top:8px;">Tier 1 Interview Ready</strong>
+                        <p id="atsTierDesc" style="color:var(--text-secondary); font-size:0.8rem;">Your resume passes 94% of enterprise ATS parsers.</p>
                     </div>
 
                     <!-- Category Bars -->
@@ -162,61 +189,86 @@
                             <div class="ats-metric-box">
                                 <div class="ats-metric-header">
                                     <span>Impact & Metrics</span>
-                                    <strong>92%</strong>
+                                    <strong id="scoreImpact">92%</strong>
                                 </div>
                                 <div class="ats-metric-bar">
-                                    <div class="ats-metric-fill" data-target="92" style="width:92%;"></div>
+                                    <div class="ats-metric-fill" id="fillImpact" data-target="92" style="width:0%;"></div>
                                 </div>
-                                <small style="font-size:0.72rem; color:var(--success);">✓ Excellent quantified metrics</small>
+                                <small id="verdictImpact" style="font-size:0.72rem; color:var(--success);">✓ Excellent quantified metrics</small>
                             </div>
 
                             <div class="ats-metric-box">
                                 <div class="ats-metric-header">
                                     <span>Keywords & Tech</span>
-                                    <strong>86%</strong>
+                                    <strong id="scoreKeywords">86%</strong>
                                 </div>
                                 <div class="ats-metric-bar">
-                                    <div class="ats-metric-fill" data-target="86" style="width:86%;"></div>
+                                    <div class="ats-metric-fill" id="fillKeywords" data-target="86" style="width:0%;"></div>
                                 </div>
-                                <small style="font-size:0.72rem; color:var(--primary-light);">✦ Good core tech density</small>
+                                <small id="verdictKeywords" style="font-size:0.72rem; color:var(--primary-light);">✦ Good core tech density</small>
                             </div>
 
                             <div class="ats-metric-box">
                                 <div class="ats-metric-header">
                                     <span>ATS Formatting</span>
-                                    <strong>95%</strong>
+                                    <strong id="scoreFormatting">95%</strong>
                                 </div>
                                 <div class="ats-metric-bar">
-                                    <div class="ats-metric-fill" data-target="95" style="width:95%;"></div>
+                                    <div class="ats-metric-fill" id="fillFormatting" data-target="95" style="width:0%;"></div>
                                 </div>
-                                <small style="font-size:0.72rem; color:var(--success);">✓ Clean parsing hierarchy</small>
+                                <small id="verdictFormatting" style="font-size:0.72rem; color:var(--success);">✓ Clean parsing hierarchy</small>
                             </div>
 
                             <div class="ats-metric-box">
                                 <div class="ats-metric-header">
                                     <span>Brevity & Conciseness</span>
-                                    <strong>82%</strong>
+                                    <strong id="scoreBrevity">82%</strong>
                                 </div>
                                 <div class="ats-metric-bar">
-                                    <div class="ats-metric-fill" data-target="82" style="width:82%;"></div>
+                                    <div class="ats-metric-fill" id="fillBrevity" data-target="82" style="width:0%;"></div>
                                 </div>
-                                <small style="font-size:0.72rem; color:var(--warning);">◈ 1 bullet can be trimmed</small>
+                                <small id="verdictBrevity" style="font-size:0.72rem; color:var(--warning);">◈ 1 bullet can be trimmed</small>
                             </div>
                         </div>
                     </div>
                 </div>
 
+                <!-- DETECTED SKILLS SECTION -->
+                <div class="profile-card">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <h3><span>⚡</span> Detected Technical Skills & Competencies</h3>
+                        <span class="candidate-badge" style="color:var(--success);" id="detectedSkillsBadge">0 Skills Found</span>
+                    </div>
+                    <p style="color:var(--text-secondary); font-size:0.86rem; margin-top:4px;">
+                        The ATS algorithm successfully verified the following skills in your resume:
+                    </p>
+                    <div id="detectedSkillsList" style="display:flex; flex-wrap:wrap; gap:8px; margin-top:12px;">
+                        <!-- Dynamically filled with .detected-skill-chip -->
+                    </div>
+                </div>
+
                 <!-- KEYWORD RECOMMENDATIONS -->
                 <div class="profile-card">
-                    <h3><span>🔑</span> Recommended High-Demand Keywords</h3>
-                    <p style="color:var(--text-secondary); font-size:0.86rem;">
-                        Adding these keywords will increase your visibility in search queries for Senior Engineer and Tech Lead roles:
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <h3><span>🔑</span> Recommended High-Demand Keywords</h3>
+                        <span class="candidate-badge" style="color:var(--primary-light);" id="missingKeywordsBadge">Top Industry Gaps</span>
+                    </div>
+                    <p style="color:var(--text-secondary); font-size:0.86rem; margin-top:4px;">
+                        Adding these keywords will increase your visibility in search queries for your target roles:
                     </p>
-                    <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:8px;">
-                        <span class="skill-tag" style="background:rgba(139,92,246,0.18); border-color:var(--primary); color:#fff;">+ Kafka (Appears in 68% of senior roles)</span>
-                        <span class="skill-tag" style="background:rgba(139,92,246,0.18); border-color:var(--primary); color:#fff;">+ Distributed Caching</span>
-                        <span class="skill-tag" style="background:rgba(139,92,246,0.18); border-color:var(--primary); color:#fff;">+ CI/CD Pipelines</span>
-                        <span class="skill-tag" style="background:rgba(139,92,246,0.18); border-color:var(--primary); color:#fff;">+ Kubernetes</span>
+                    <div id="recommendedKeywordsList" style="display:flex; flex-wrap:wrap; gap:8px; margin-top:12px;">
+                        <!-- Dynamically filled with .missing-skill-chip -->
+                    </div>
+                </div>
+
+                <!-- RESUME SECTION HEALTH CHECKLIST -->
+                <div class="profile-card">
+                    <h3><span>✓</span> ATS Structure & Section Checklist</h3>
+                    <p style="color:var(--text-secondary); font-size:0.86rem; margin-top:4px;">
+                        ATS robots parse standard section headers. Here is how your resume structure scored:
+                    </p>
+                    <div class="section-check-grid" id="sectionCheckGrid">
+                        <!-- Dynamically populated -->
                     </div>
                 </div>
 
@@ -224,7 +276,7 @@
                 <div class="profile-card">
                     <h3><span>⚡</span> AI Bullet Point Optimizer</h3>
                     <p style="color:var(--text-secondary); font-size:0.86rem;">
-                        Paste any resume experience bullet point below. AI will enhance it using the Google X-Y-Z formula (Accomplished [X] as measured by [Y], by doing [Z]).
+                        Paste or select any experience bullet point. AI will enhance it using the Google X-Y-Z formula (Accomplished [X] as measured by [Y], by doing [Z]).
                     </p>
                     <div style="display:flex; gap:10px; margin-top:8px;">
                         <input type="text" id="bulletInput" placeholder="e.g. Worked on payment microservices and fixed bugs in Java" style="flex:1; background:rgba(255,255,255,0.04); border:1px solid var(--border-subtle); border-radius:8px; padding:10px 14px; color:#fff;">
@@ -232,10 +284,25 @@
                     </div>
                     <div id="bulletOutput" style="display:none;"></div>
                 </div>
+
+                <!-- EXTRACTED RAW TEXT VIEWER (COLLAPSIBLE) -->
+                <details style="background:var(--dark-card); border:1px solid var(--border-subtle); border-radius:var(--radius-md); padding:18px;">
+                    <summary style="cursor:pointer; color:#fff; font-weight:600; font-size:0.92rem; display:flex; align-items:center; gap:8px;">
+                        <span>📄</span>
+                        <span>View Extracted Resume Text (<span id="extractedCharCount">0</span> characters parsed)</span>
+                        <span style="margin-left:auto; font-size:0.75rem; color:var(--text-muted);">Click to toggle</span>
+                    </summary>
+                    <div class="extracted-text-preview" id="extractedTextPreview" style="margin-top:14px;">
+                        <!-- Extracted text shown here -->
+                    </div>
+                </details>
             </div>
         </div>
     </main>
 
+    <!-- PDF.js and JSZip for real client-side multi-format parsing -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <script src="../js/dashboard.js"></script>
     <script src="../js/ai.js"></script>
 </body>

@@ -440,3 +440,166 @@
     transform: scale(1.08);
     box-shadow: 0 0 25px var(--primary);
 }
+
+/* =========================================================
+   DYNAMIC RESUME ANALYZER ENHANCEMENTS
+   ========================================================= */
+.resume-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.resume-tab-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-subtle);
+    color: var(--text-secondary);
+    padding: 8px 18px;
+    border-radius: var(--radius-full);
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.resume-tab-btn:hover {
+    border-color: var(--primary);
+    color: #fff;
+}
+
+.resume-tab-btn.active {
+    background: rgba(139, 92, 246, 0.2);
+    border-color: var(--primary);
+    color: #fff;
+    box-shadow: 0 0 15px rgba(139, 92, 246, 0.3);
+}
+
+.file-dropzone.dragover {
+    border-color: var(--primary) !important;
+    background: rgba(139, 92, 246, 0.12) !important;
+    box-shadow: 0 0 25px rgba(139, 92, 246, 0.35);
+    transform: scale(1.01);
+}
+
+.candidate-summary-banner {
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.12), rgba(16, 185, 129, 0.06));
+    border: 1px solid rgba(139, 92, 246, 0.25);
+    border-radius: var(--radius-md);
+    padding: 18px 22px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px;
+}
+
+.candidate-meta-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    font-size: 0.8rem;
+}
+
+.candidate-badge {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-subtle);
+    padding: 5px 12px;
+    border-radius: var(--radius-full);
+    color: var(--text-secondary);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.candidate-badge strong {
+    color: #fff;
+}
+
+.detected-skill-chip {
+    background: rgba(16, 185, 129, 0.14);
+    border: 1px solid rgba(16, 185, 129, 0.4);
+    color: #34d399;
+    padding: 6px 14px;
+    border-radius: var(--radius-full);
+    font-size: 0.8rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: var(--transition);
+}
+
+.detected-skill-chip:hover {
+    background: rgba(16, 185, 129, 0.25);
+    transform: translateY(-2px);
+    box-shadow: 0 0 12px rgba(16, 185, 129, 0.3);
+}
+
+.missing-skill-chip {
+    background: rgba(139, 92, 246, 0.12);
+    border: 1px dashed rgba(139, 92, 246, 0.5);
+    color: #c084fc;
+    padding: 6px 14px;
+    border-radius: var(--radius-full);
+    font-size: 0.8rem;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.missing-skill-chip:hover {
+    background: rgba(139, 92, 246, 0.25);
+    border-style: solid;
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+.section-check-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 12px;
+    margin-top: 12px;
+}
+
+.section-check-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-sm);
+    padding: 12px 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.82rem;
+}
+
+.section-check-card.found {
+    border-color: rgba(16, 185, 129, 0.3);
+    background: rgba(16, 185, 129, 0.05);
+    color: #34d399;
+}
+
+.section-check-card.missing {
+    border-color: rgba(245, 158, 11, 0.3);
+    background: rgba(245, 158, 11, 0.05);
+    color: #fbbf24;
+}
+
+.extracted-text-preview {
+    max-height: 220px;
+    overflow-y: auto;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    padding: 14px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.78rem;
+    line-height: 1.5;
+    color: #94a3b8;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
