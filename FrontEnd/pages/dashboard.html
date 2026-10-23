@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard | JobHub AI</title>
+
+    <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+
+<body>
+
+    <!-- ============================= -->
+    <!-- SIDEBAR -->
+    <!-- ============================= -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            <span class="logo-icon">✦</span>
+            <span>JobHub <b>AI</b></span>
+        </div>
+
+        <nav class="sidebar-nav">
+
+            <p class="nav-title">MAIN</p>
+
+            <a href="dashboard.html" class="nav-item active">
+                <span>⌂</span>
+                Dashboard
+            </a>
+
+            <a href="job.html" class="nav-item">
+                <span>⌕</span>
+                Find Jobs
+            </a>
+
+            <a href="saved-jobs.html" class="nav-item">
+                <span>♡</span>
+                Saved Jobs
+            </a>
+
+            <a href="application.html" class="nav-item">
+                <span>▣</span>
+                Applications
+            </a>
+
+
+            <p class="nav-title">AI TOOLS</p>
+
+            <a href="ai-matcher.html" class="nav-item">
+                <span>✦</span>
+                AI Job Matcher
+            </a>
+
+            <a href="resume-analyzer.html" class="nav-item">
+                <span>▤</span>
+                Resume Analyzer
+            </a>
+
+            <a href="skill-gap.html" class="nav-item">
+                <span>◈</span>
+                Skill Gap
+            </a>
+
+            <a href="career-assistant.html" class="nav-item">
+                <span>☼</span>
+                Career Assistant
+            </a>
+
+
+            <p class="nav-title">ACCOUNT</p>
+
+            <a href="profile.html" class="nav-item">
+                <span>♙</span>
+                My Profile
+            </a>
+
+            <a href="companies.html" class="nav-item">
+                <span>▦</span>
+                Companies
+            </a>
+
+        </nav>
+
+
+        <!-- SIDEBAR BOTTOM -->
+
+        <div class="sidebar-bottom">
+
+            <div class="ai-mini-card">
+
+                <div class="ai-mini-icon">✦</div>
+
+                <div>
+                    <strong>AI Assistant</strong>
+                    <p>Need career help?</p>
+                </div>
+
+            </div>
+
+            <a href="login.html" class="logout-btn">
+                <span>↪</span>
+                Logout
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- ============================= -->
+    <!-- MAIN CONTENT -->
+    <!-- ============================= -->
+
+    <main class="main-content">
+
+        <!-- TOP NAVBAR -->
+
+        <header class="topbar">
+
+            <div class="mobile-logo">
+                ✦ JobHub <b>AI</b>
+            </div>
+
+            <div class="topbar-search">
+
+                <span>⌕</span>
+
+                <input
+                    type="text"
+                    id="dashboardSearch"
+                    placeholder="Search jobs, skills or companies..."
+                >
+
+            </div>
+
+            <div class="topbar-right">
+
+                <button class="notification-btn" id="notificationBtn">
+                    ♢
+                    <span class="notification-dot"></span>
+                </button>
+
+                <div class="profile-mini" id="profileMenu">
+
+                    <div class="avatar">
+                        JD
+                    </div>
+
+                    <div class="profile-mini-info">
+                        <strong>Job Seeker</strong>
+                        <span>Candidate</span>
+                    </div>
+
+                    <span class="profile-arrow">⌄</span>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- ============================= -->
+        <!-- DASHBOARD BODY -->
+        <!-- ============================= -->
+
+        <section class="dashboard-body">
+
+
+            <!-- WELCOME -->
+
+            <div class="welcome-section">
+
+                <div>
+
+                    <p class="welcome-label">
+                        ✦ AI-POWERED JOB SEARCH
+                    </p>
+
+                    <h1>
+                        Welcome back,
+                        <span>Job Seeker!</span>
+                    </h1>
+
+                    <p class="welcome-text">
+                        Discover opportunities that match your skills,
+                        experience and career goals.
+                    </p>
+
+                </div>
+
+                <a href="profile.html" class="profile-complete">
+                    Complete Profile →
+                </a>
+
+            </div>
+
+
+            <!-- STATS -->
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+
+                    <div class="stat-icon purple">
+                        ♧
+                    </div>
+
+                    <div>
+                        <span>Recommended Jobs</span>
+                        <strong>24</strong>
+                    </div>
+
+                    <small>+8 this week</small>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon blue">
+                        ♡
+                    </div>
+
+                    <div>
+                        <span>Saved Jobs</span>
+                        <strong>12</strong>
+                    </div>
+
+                    <small>3 new</small>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon green">
+                        ✓
+                    </div>
+
+                    <div>
+                        <span>Applications</span>
+                        <strong>8</strong>
+                    </div>
+
+                    <small>2 interviews</small>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon orange">
+                        ◈
+                    </div>
+
+                    <div>
+                        <span>Profile Match</span>
+                        <strong>87%</strong>
+                    </div>
+
+                    <small>+12% improved</small>
+
+                </div>
+
+            </div>
+
+
+            <!-- MAIN GRID -->
+
+            <div class="content-grid">
+
+
+                <!-- RECOMMENDED JOBS -->
+
+                <section class="dashboard-card jobs-card">
+
+                    <div class="card-heading">
+
+                        <div>
+
+                            <span class="card-kicker">
+                                ✦ AI RECOMMENDATIONS
+                            </span>
+
+                            <h2>Jobs For You</h2>
+
+                        </div>
+
+                        <a href="job.html">
+                            View all →
+                        </a>
+
+                    </div>
+
+
+                    <!-- JOB 1 -->
+
+                    <div class="job-item">
+
+                        <div class="company-logo microsoft">
+                            M
+                        </div>
+
+                        <div class="job-info">
+
+                            <h3>Software Engineer</h3>
+
+                            <p>Microsoft</p>
+
+                            <div class="job-meta">
+                                <span>📍 Bangalore</span>
+                                <span>◉ Full-time</span>
+                                <span>₹12–18 LPA</span>
+                            </div>
+
+                        </div>
+
+                        <div class="match-score">
+                            <strong>94%</strong>
+                            <span>Match</span>
+                        </div>
+
+                        <button class="save-job">♡</button>
+
+                    </div>
+
+
+                    <!-- JOB 2 -->
+
+                    <div class="job-item">
+
+                        <div class="company-logo amazon">
+                            a
+                        </div>
+
+                        <div class="job-info">
+
+                            <h3>Data Analyst</h3>
+
+                            <p>Amazon</p>
+
+                            <div class="job-meta">
+                                <span>📍 Hyderabad</span>
+                                <span>◉ Full-time</span>
+                                <span>₹8–14 LPA</span>
+                            </div>
+
+                        </div>
+
+                        <div class="match-score">
+                            <strong>91%</strong>
+                            <span>Match</span>
+                        </div>
+
+                        <button class="save-job">♡</button>
+
+                    </div>
+
+
+                    <!-- JOB 3 -->
+
+                    <div class="job-item">
+
+                        <div class="company-logo adobe">
+                            A
+                        </div>
+
+                        <div class="job-info">
+
+                            <h3>UI/UX Designer</h3>
+
+                            <p>Adobe</p>
+
+                            <div class="job-meta">
+                                <span>📍 Mumbai</span>
+                                <span>◉ Full-time</span>
+                                <span>₹7–12 LPA</span>
+                            </div>
+
+                        </div>
+
+                        <div class="match-score">
+                            <strong>87%</strong>
+                            <span>Match</span>
+                        </div>
+
+                        <button class="save-job">♡</button>
+
+                    </div>
+
+                </section>
+
+
+                <!-- AI CAREER CARD -->
+
+                <section class="dashboard-card ai-card">
+
+                    <div class="ai-glow"></div>
+
+                    <div class="ai-icon">
+                        ✦
+                    </div>
+
+                    <span class="card-kicker">
+                        JOBHUB AI
+                    </span>
+
+                    <h2>
+                        Let AI find your
+                        <span>perfect match.</span>
+                    </h2>
+
+                    <p>
+                        Tell us about your skills and experience.
+                        Our AI will find jobs that fit your profile.
+                    </p>
+
+                    <a href="ai-matcher.html" class="ai-button">
+                        Start AI Matching →
+                    </a>
+
+                </section>
+
+            </div>
+
+
+            <!-- QUICK ACTIONS -->
+
+            <section class="quick-section">
+
+                <div class="section-title">
+
+                    <div>
+                        <span class="card-kicker">QUICK ACTIONS</span>
+                        <h2>Boost Your Career</h2>
+                    </div>
+
+                </div>
+
+
+                <div class="quick-grid">
+
+
+                    <a href="resume-analyzer.html" class="quick-card">
+
+                        <div class="quick-icon">
+                            📄
+                        </div>
+
+                        <div>
+                            <h3>Analyze Resume</h3>
+                            <p>Get AI-powered resume feedback</p>
+                        </div>
+
+                        <span>→</span>
+
+                    </a>
+
+
+                    <a href="skill-gap.html" class="quick-card">
+
+                        <div class="quick-icon">
+                            ◈
+                        </div>
+
+                        <div>
+                            <h3>Find Skill Gaps</h3>
+                            <p>Discover skills you should learn</p>
+                        </div>
+
+                        <span>→</span>
+
+                    </a>
+
+
+                    <a href="career-assistant.html" class="quick-card">
+
+                        <div class="quick-icon">
+                            ✦
+                        </div>
+
+                        <div>
+                            <h3>AI Career Assistant</h3>
+                            <p>Ask AI about your career</p>
+                        </div>
+
+                        <span>→</span>
+
+                    </a>
+
+                </div>
+
+            </section>
+
+
+            <!-- PROFILE COMPLETION -->
+
+            <section class="profile-progress-card">
+
+                <div class="progress-info">
+
+                    <div class="progress-icon">
+                        ♙
+                    </div>
+
+                    <div>
+
+                        <span>PROFILE COMPLETION</span>
+
+                        <h3>
+                            Complete your profile to get better matches
+                        </h3>
+
+                    </div>
+
+                </div>
+
+
+                <div class="progress-container">
+
+                    <div class="progress-bar">
+
+                        <div
+                            class="progress-fill"
+                            style="width: 75%;"
+                        ></div>
+
+                    </div>
+
+                    <strong>75%</strong>
+
+                </div>
+
+
+                <a href="profile.html">
+                    Complete →
+                </a>
+
+            </section>
+
+
+        </section>
+
+    </main>
+
+
+    <script src="../js/dashboard.js"></script>
+
+</body>
+
+</html>

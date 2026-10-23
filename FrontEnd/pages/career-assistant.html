@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Career Assistant | JobHub AI</title>
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/job.css">
+    <link rel="stylesheet" href="../css/ai.css">
+</head>
+
+<body>
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="logo">
+            <span class="logo-icon">✦</span>
+            <span>JobHub <b>AI</b></span>
+        </div>
+
+        <nav class="sidebar-nav">
+            <p class="nav-title">MAIN</p>
+            <a href="dashboard.html" class="nav-item">
+                <span>⌂</span>
+                Dashboard
+            </a>
+            <a href="job.html" class="nav-item">
+                <span>⌕</span>
+                Find Jobs
+            </a>
+            <a href="saved-jobs.html" class="nav-item">
+                <span>♡</span>
+                Saved Jobs
+            </a>
+            <a href="application.html" class="nav-item">
+                <span>▣</span>
+                Applications
+            </a>
+
+            <p class="nav-title">AI TOOLS</p>
+            <a href="ai-matcher.html" class="nav-item">
+                <span>✦</span>
+                AI Job Matcher
+            </a>
+            <a href="resume-analyzer.html" class="nav-item">
+                <span>▤</span>
+                Resume Analyzer
+            </a>
+            <a href="skill-gap.html" class="nav-item">
+                <span>◈</span>
+                Skill Gap
+            </a>
+            <a href="career-assistant.html" class="nav-item active">
+                <span>☼</span>
+                Career Assistant
+            </a>
+
+            <p class="nav-title">ACCOUNT</p>
+            <a href="profile.html" class="nav-item">
+                <span>♙</span>
+                My Profile
+            </a>
+            <a href="companies.html" class="nav-item">
+                <span>▦</span>
+                Companies
+            </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="ai-mini-card" onclick="window.location.href='resume-analyzer.html'">
+                <div class="ai-mini-icon">▤</div>
+                <div>
+                    <strong>ATS Scanner</strong>
+                    <p>Check your resume score</p>
+                </div>
+            </div>
+            <a href="login.html" class="logout-btn">
+                <span>↪</span>
+                Logout
+            </a>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+        <!-- TOPBAR -->
+        <header class="topbar">
+            <div class="mobile-logo">✦ JobHub <b>AI</b></div>
+            <div class="topbar-search">
+                <span>⌕</span>
+                <input type="text" id="dashboardSearch" placeholder="Search jobs, skills or companies...">
+            </div>
+            <div class="topbar-right">
+                <button class="notification-btn" id="notificationBtn">
+                    ♢
+                    <span class="notification-dot"></span>
+                </button>
+                <div class="profile-mini" id="profileMenu">
+                    <div class="avatar">JD</div>
+                    <div class="profile-mini-info">
+                        <strong>Job Seeker</strong>
+                        <span>Candidate</span>
+                    </div>
+                    <span class="profile-arrow">⌄</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- PAGE CONTENT -->
+        <div class="page-container" style="gap:16px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+                <div>
+                    <span class="card-kicker">✦ REAL-TIME CAREER COACH</span>
+                    <h1 style="font-size:1.85rem; font-weight:800; color:#fff;">AI Career & Interview Assistant</h1>
+                </div>
+                <button class="reset-filters-btn" id="clearChatBtn" style="font-size:0.78rem; padding:6px 14px;">
+                    🗑 Clear Conversation
+                </button>
+            </div>
+
+            <!-- CHAT INTERFACE CARD -->
+            <div class="chat-container-card">
+                <!-- CHAT HEADER -->
+                <div class="chat-header">
+                    <div class="chat-bot-identity">
+                        <div class="bot-avatar-glowing">
+                            ✦
+                            <span class="bot-online-badge"></span>
+                        </div>
+                        <div>
+                            <strong style="color:#fff; font-size:0.95rem; display:block;">JobHub AI Coach</strong>
+                            <span style="color:var(--success); font-size:0.75rem;">● Online · Expert in Technical Interviews & Compensation</span>
+                        </div>
+                    </div>
+                    <span style="font-size:0.75rem; color:var(--text-muted);">Powered by JobHub AI Core</span>
+                </div>
+
+                <!-- CHAT MESSAGES AREA -->
+                <div class="chat-messages-area" id="chatMessages">
+                    <div class="chat-message-row ai">
+                        <div class="chat-bubble">
+                            ✦ Hello! I'm your JobHub AI Career Coach. I can help you prepare for technical interviews, negotiate compensation packages, rewrite resume bullet points, or plan your transition to Senior & Lead engineering roles.<br><br>
+                            Click any suggested prompt below or type your career question to get started!
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PROMPT STARTER CHIPS -->
+                <div class="chat-starters-row">
+                    <div class="starter-chip">🎯 Mock interview for Java Backend</div>
+                    <div class="starter-chip">💼 How to negotiate ₹30 LPA salary?</div>
+                    <div class="starter-chip">📝 Top resume tips for ATS optimization</div>
+                    <div class="starter-chip">🚀 Questions to ask the hiring manager</div>
+                </div>
+
+                <!-- CHAT INPUT BAR -->
+                <div class="chat-input-bar">
+                    <input type="text" id="chatInput" placeholder="Ask anything about interviews, salary negotiations, resume tuning..." autocomplete="off">
+                    <button class="chat-send-btn" id="chatSendBtn">➤</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/dashboard.js"></script>
+    <script src="../js/ai.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Job Matcher | JobHub AI</title>
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/job.css">
+    <link rel="stylesheet" href="../css/ai.css">
+</head>
+
+<body>
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="logo">
+            <span class="logo-icon">✦</span>
+            <span>JobHub <b>AI</b></span>
+        </div>
+
+        <nav class="sidebar-nav">
+            <p class="nav-title">MAIN</p>
+            <a href="dashboard.html" class="nav-item">
+                <span>⌂</span>
+                Dashboard
+            </a>
+            <a href="job.html" class="nav-item">
+                <span>⌕</span>
+                Find Jobs
+            </a>
+            <a href="saved-jobs.html" class="nav-item">
+                <span>♡</span>
+                Saved Jobs
+            </a>
+            <a href="application.html" class="nav-item">
+                <span>▣</span>
+                Applications
+            </a>
+
+            <p class="nav-title">AI TOOLS</p>
+            <a href="ai-matcher.html" class="nav-item active">
+                <span>✦</span>
+                AI Job Matcher
+            </a>
+            <a href="resume-analyzer.html" class="nav-item">
+                <span>▤</span>
+                Resume Analyzer
+            </a>
+            <a href="skill-gap.html" class="nav-item">
+                <span>◈</span>
+                Skill Gap
+            </a>
+            <a href="career-assistant.html" class="nav-item">
+                <span>☼</span>
+                Career Assistant
+            </a>
+
+            <p class="nav-title">ACCOUNT</p>
+            <a href="profile.html" class="nav-item">
+                <span>♙</span>
+                My Profile
+            </a>
+            <a href="companies.html" class="nav-item">
+                <span>▦</span>
+                Companies
+            </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="ai-mini-card" onclick="window.location.href='career-assistant.html'">
+                <div class="ai-mini-icon">✦</div>
+                <div>
+                    <strong>AI Assistant</strong>
+                    <p>Need matching advice?</p>
+                </div>
+            </div>
+            <a href="login.html" class="logout-btn">
+                <span>↪</span>
+                Logout
+            </a>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+        <!-- TOPBAR -->
+        <header class="topbar">
+            <div class="mobile-logo">✦ JobHub <b>AI</b></div>
+            <div class="topbar-search">
+                <span>⌕</span>
+                <input type="text" id="dashboardSearch" placeholder="Search jobs, skills or companies...">
+            </div>
+            <div class="topbar-right">
+                <button class="notification-btn" id="notificationBtn">
+                    ♢
+                    <span class="notification-dot"></span>
+                </button>
+                <div class="profile-mini" id="profileMenu">
+                    <div class="avatar">JD</div>
+                    <div class="profile-mini-info">
+                        <strong>Job Seeker</strong>
+                        <span>Candidate</span>
+                    </div>
+                    <span class="profile-arrow">⌄</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- PAGE CONTENT -->
+        <div class="page-container">
+            <div>
+                <span class="card-kicker">✦ DEEP NEURAL MATCHING ENGINE</span>
+                <h1 style="font-size:2rem; font-weight:800; color:#fff;">AI Candidate-to-Job Matcher</h1>
+                <p style="color:var(--text-secondary); font-size:0.92rem;">Our multi-dimensional vector model aligns your technical stack, project depth, and career preferences with active positions.</p>
+            </div>
+
+            <!-- SCANNER HERO WITH ROTATING RADAR BEAM -->
+            <section class="scanner-visual-container">
+                <div class="radar-scanner-box">
+                    <div class="radar-sweep-beam" id="radarBeam" style="display:none;"></div>
+                    <div class="radar-center-core">✦</div>
+                </div>
+
+                <h3 style="color:#fff; font-size:1.25rem; margin-bottom:6px;">Neural Semantic Alignment</h3>
+                <p id="matcherStatusText" style="color:var(--text-muted); font-size:0.88rem; max-width:540px; margin-bottom:20px;">
+                    Ready to compare your profile against current active employer requisitions.
+                </p>
+
+                <div style="display:flex; gap:14px; flex-wrap:wrap; justify-content:center;">
+                    <button class="apply-btn" id="btnTriggerMatcher" style="padding:14px 36px; font-size:0.95rem;">
+                        ✦ Run Neural AI Matcher
+                    </button>
+                </div>
+            </section>
+
+            <!-- SCANNER RESULTS -->
+            <div style="display:flex; flex-direction:column; gap:20px;" id="matcherResultsContainer">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <h3 style="color:#fff; font-size:1.2rem;">✦ Top Matched Opportunities For You</h3>
+                    <span class="filter-tag" style="color:var(--primary-light);">Sorted by Semantic Vector Score</span>
+                </div>
+
+                <!-- Match 1 -->
+                <div class="job-portal-card">
+                    <div class="card-top-row">
+                        <div class="company-job-title">
+                            <div class="company-logo microsoft">M</div>
+                            <div class="card-title-meta">
+                                <h3>Senior Full Stack Engineer</h3>
+                                <p>Microsoft · Bangalore, India (Hybrid)</p>
+                            </div>
+                        </div>
+                        <div class="ai-match-pill high">
+                            <span>✦</span> 96% Match
+                        </div>
+                    </div>
+                    <p class="card-snippet">
+                        <strong>Why AI Picked This:</strong> 8 out of 8 required core skills (Java, Spring Boot, React, Docker, Microservices) matched your active profile. Your 4+ years experience meets the target senior band.
+                    </p>
+                    <div class="card-skills-row">
+                        <span class="skill-tag matched">✓ Java</span>
+                        <span class="skill-tag matched">✓ Spring Boot</span>
+                        <span class="skill-tag matched">✓ React</span>
+                        <span class="skill-tag matched">✓ Docker</span>
+                        <span class="skill-tag matched">✓ Microservices</span>
+                    </div>
+                    <div class="card-bottom-row">
+                        <div class="job-salary-location">
+                            <strong>₹24–32 LPA</strong>
+                            <span>Full-time</span>
+                        </div>
+                        <a href="job-detail.html?id=job-1" class="apply-btn">View Detailed Analysis →</a>
+                    </div>
+                </div>
+
+                <!-- Match 2 -->
+                <div class="job-portal-card">
+                    <div class="card-top-row">
+                        <div class="company-job-title">
+                            <div class="company-logo meta">R</div>
+                            <div class="card-title-meta">
+                                <h3>Backend Java Developer</h3>
+                                <p>Razorpay · Bangalore, India (Hybrid)</p>
+                            </div>
+                        </div>
+                        <div class="ai-match-pill high">
+                            <span>✦</span> 92% Match
+                        </div>
+                    </div>
+                    <p class="card-snippet">
+                        <strong>Why AI Picked This:</strong> Direct overlap in Java, Spring Boot, MySQL, and REST APIs. Razorpay is seeking fast-scaling payment backend engineers with high-concurrency experience.
+                    </p>
+                    <div class="card-skills-row">
+                        <span class="skill-tag matched">✓ Java</span>
+                        <span class="skill-tag matched">✓ Spring Boot</span>
+                        <span class="skill-tag matched">✓ REST APIs</span>
+                        <span class="skill-tag">◈ Kafka (Recommended)</span>
+                    </div>
+                    <div class="card-bottom-row">
+                        <div class="job-salary-location">
+                            <strong>₹16–25 LPA</strong>
+                            <span>Full-time</span>
+                        </div>
+                        <a href="job-detail.html?id=job-5" class="apply-btn">View Detailed Analysis →</a>
+                    </div>
+                </div>
+
+                <!-- Match 3 -->
+                <div class="job-portal-card">
+                    <div class="card-top-row">
+                        <div class="company-job-title">
+                            <div class="company-logo google">G</div>
+                            <div class="card-title-meta">
+                                <h3>AI / Machine Learning Engineer</h3>
+                                <p>Google · Hyderabad, India (Hybrid)</p>
+                            </div>
+                        </div>
+                        <div class="ai-match-pill">
+                            <span>✦</span> 89% Match
+                        </div>
+                    </div>
+                    <p class="card-snippet">
+                        <strong>Why AI Picked This:</strong> Strong foundational alignment in algorithms, Java, and Docker. Opportunity to expand into large-scale deep learning pipelines.
+                    </p>
+                    <div class="card-bottom-row">
+                        <div class="job-salary-location">
+                            <strong>₹28–38 LPA</strong>
+                            <span>Full-time</span>
+                        </div>
+                        <a href="job-detail.html?id=job-2" class="apply-btn">View Detailed Analysis →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/dashboard.js"></script>
+    <script src="../js/ai.js"></script>
+</body>
+
+</html>

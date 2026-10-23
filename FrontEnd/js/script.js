@@ -175,36 +175,14 @@ document.addEventListener("DOMContentLoaded", function () {
                     jobTitle === "" &&
                     location === ""
                 ) {
-
-                    alert(
-                        "Please enter a job title, skill, keyword, or location."
-                    );
-
+                    window.location.href = "pages/job.html";
                     return;
                 }
 
-
-                if (
-                    jobTitle !== "" &&
-                    location !== ""
-                ) {
-
-                    alert(
-                        `Searching for "${jobTitle}" jobs in "${location}"...`
-                    );
-
-                } else if (jobTitle !== "") {
-
-                    alert(
-                        `Searching for "${jobTitle}" jobs...`
-                    );
-
-                } else {
-
-                    alert(
-                        `Searching for jobs in "${location}"...`
-                    );
-                }
+                const params = new URLSearchParams();
+                if (jobTitle) params.set("q", jobTitle);
+                if (location) params.set("loc", location);
+                window.location.href = `pages/job.html?${params.toString()}`;
 
 
                 console.log(
@@ -271,20 +249,13 @@ document.addEventListener("DOMContentLoaded", function () {
     const loginButton =
         document.querySelector(".login-btn");
 
-
     if (loginButton) {
-
         loginButton.addEventListener(
             "click",
             function () {
-
-                alert(
-                    "Login page will be available soon."
-                );
-
+                window.location.href = "pages/login.html";
             }
         );
-
     }
 
 
@@ -295,20 +266,13 @@ document.addEventListener("DOMContentLoaded", function () {
     const signupButton =
         document.querySelector(".signup-btn");
 
-
     if (signupButton) {
-
         signupButton.addEventListener(
             "click",
             function () {
-
-                alert(
-                    "Sign Up page will be available soon."
-                );
-
+                window.location.href = "pages/signup.html";
             }
         );
-
     }
 
 
@@ -321,37 +285,26 @@ document.addEventListener("DOMContentLoaded", function () {
             ".heart, .bookmark"
         );
 
-
     hearts.forEach(function (heart) {
-
         heart.addEventListener(
             "click",
-            function () {
-
+            function (e) {
+                e.stopPropagation();
                 if (
                     this.textContent.trim() === "♡"
                 ) {
-
                     this.textContent = "♥";
-
                     this.style.color =
                         "#c084fc";
-
                     this.style.textShadow =
                         "0 0 12px rgba(192,132,252,0.7)";
-
                 } else {
-
                     this.textContent = "♡";
-
                     this.style.color = "";
-
                     this.style.textShadow = "";
                 }
-
             }
         );
-
     });
 
 
@@ -364,42 +317,26 @@ document.addEventListener("DOMContentLoaded", function () {
             ".navbar nav a"
         );
 
-
     navLinks.forEach(function (link) {
-
         link.addEventListener(
             "click",
             function (event) {
-
-                event.preventDefault();
-
-                const page =
-                    this.textContent.trim();
-
-
-                if (page === "Home") {
-
+                const href = this.getAttribute("href");
+                if (href === "#" || href === "index.html") {
+                    event.preventDefault();
                     window.scrollTo({
                         top: 0,
                         behavior: "smooth"
                     });
-
-                } else {
-
-                    alert(
-                        `${page} page will be available soon.`
-                    );
-
                 }
-
+                // Allow normal navigation for real links
             }
         );
-
     });
 
 
     // ==================================================
-    // VIEW ALL JOBS
+    // VIEW ALL JOBS & JOB CARD CLICKS
     // ==================================================
 
     const viewJobsLink =
@@ -407,23 +344,24 @@ document.addEventListener("DOMContentLoaded", function () {
             ".section-heading > a"
         );
 
-
     if (viewJobsLink) {
-
         viewJobsLink.addEventListener(
             "click",
             function (event) {
-
-                event.preventDefault();
-
-                alert(
-                    "All jobs page will be available soon."
-                );
-
+                window.location.href = "pages/job.html";
             }
         );
-
     }
+
+    const jobCards = document.querySelectorAll(".job-card-item");
+    jobCards.forEach(card => {
+        card.style.cursor = "pointer";
+        card.addEventListener("click", function(e) {
+            if (!e.target.closest(".heart")) {
+                window.location.href = "pages/job-detail.html";
+            }
+        });
+    });
 
 
     // ==================================================

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Details | JobHub AI</title>
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/job.css">
+</head>
+
+<body>
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="logo">
+            <span class="logo-icon">✦</span>
+            <span>JobHub <b>AI</b></span>
+        </div>
+
+        <nav class="sidebar-nav">
+            <p class="nav-title">MAIN</p>
+            <a href="dashboard.html" class="nav-item">
+                <span>⌂</span>
+                Dashboard
+            </a>
+            <a href="job.html" class="nav-item active">
+                <span>⌕</span>
+                Find Jobs
+            </a>
+            <a href="saved-jobs.html" class="nav-item">
+                <span>♡</span>
+                Saved Jobs
+            </a>
+            <a href="application.html" class="nav-item">
+                <span>▣</span>
+                Applications
+            </a>
+
+            <p class="nav-title">AI TOOLS</p>
+            <a href="ai-matcher.html" class="nav-item">
+                <span>✦</span>
+                AI Job Matcher
+            </a>
+            <a href="resume-analyzer.html" class="nav-item">
+                <span>▤</span>
+                Resume Analyzer
+            </a>
+            <a href="skill-gap.html" class="nav-item">
+                <span>◈</span>
+                Skill Gap
+            </a>
+            <a href="career-assistant.html" class="nav-item">
+                <span>☼</span>
+                Career Assistant
+            </a>
+
+            <p class="nav-title">ACCOUNT</p>
+            <a href="profile.html" class="nav-item">
+                <span>♙</span>
+                My Profile
+            </a>
+            <a href="companies.html" class="nav-item">
+                <span>▦</span>
+                Companies
+            </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="ai-mini-card" onclick="window.location.href='career-assistant.html'">
+                <div class="ai-mini-icon">✦</div>
+                <div>
+                    <strong>AI Career Coach</strong>
+                    <p>Ask for interview preparation</p>
+                </div>
+            </div>
+            <a href="login.html" class="logout-btn">
+                <span>↪</span>
+                Logout
+            </a>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+        <!-- TOPBAR -->
+        <header class="topbar">
+            <div class="mobile-logo">✦ JobHub <b>AI</b></div>
+            <div class="topbar-search">
+                <span>⌕</span>
+                <input type="text" id="dashboardSearch" placeholder="Search jobs, skills or companies...">
+            </div>
+            <div class="topbar-right">
+                <button class="notification-btn" id="notificationBtn">
+                    ♢
+                    <span class="notification-dot"></span>
+                </button>
+                <div class="profile-mini" id="profileMenu">
+                    <div class="avatar">JD</div>
+                    <div class="profile-mini-info">
+                        <strong>Job Seeker</strong>
+                        <span>Candidate</span>
+                    </div>
+                    <span class="profile-arrow">⌄</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- PAGE CONTENT -->
+        <div class="page-container">
+            <a href="job.html" style="display:inline-flex; align-items:center; gap:8px; font-size:0.88rem; color:var(--primary-light); font-weight:600;">
+                ← Back to All Jobs
+            </a>
+
+            <!-- JOB BANNER -->
+            <section class="job-detail-banner">
+                <div class="banner-company-info">
+                    <div class="banner-company-logo microsoft" id="detailLogo">M</div>
+                    <div>
+                        <span class="card-kicker">✦ VERIFIED RECRUITER OPENING</span>
+                        <h1 style="font-size:1.85rem; font-weight:800; color:#fff;" id="detailTitle">Senior Full Stack Engineer</h1>
+                        <p style="color:var(--text-secondary); font-size:0.95rem;" id="detailCompany">Microsoft · Bangalore, India · Hybrid</p>
+                    </div>
+                </div>
+
+                <div style="display:flex; flex-direction:column; align-items:flex-end; gap:12px;">
+                    <div style="font-size:1.5rem; font-weight:800; color:#fff;" id="detailSalary">₹24–32 LPA</div>
+                    <div style="display:flex; gap:10px;">
+                        <button class="apply-btn" id="detailApplyBtn" style="padding:12px 28px; font-size:0.95rem;">
+                            ✦ Easy Apply Now
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- DETAILS GRID -->
+            <div class="detail-main-grid">
+                <!-- LEFT CONTENT -->
+                <div class="detail-content-card">
+                    <div class="detail-section">
+                        <h3><span>✦</span> Role Overview</h3>
+                        <p id="detailDesc">Loading position description...</p>
+                    </div>
+
+                    <div class="detail-section">
+                        <h3><span>📋</span> Key Responsibilities & Requirements</h3>
+                        <ul class="detail-list" id="detailRequirements"></ul>
+                    </div>
+
+                    <div class="detail-section">
+                        <h3><span>🎁</span> What We Offer (Benefits & Perks)</h3>
+                        <ul class="detail-list" id="detailBenefits"></ul>
+                    </div>
+
+                    <div class="detail-section">
+                        <h3><span>⚡</span> Key Tech Stack & Skills</h3>
+                        <div class="card-skills-row" id="detailSkills" style="margin-top:10px;"></div>
+                    </div>
+                </div>
+
+                <!-- RIGHT SIDEBAR (AI MATCH + QUICK STATS) -->
+                <div style="display:flex; flex-direction:column; gap:24px;">
+                    <!-- AI MATCH CARD -->
+                    <div class="ai-match-breakdown-card">
+                        <span class="card-kicker">AI CANDIDATE MATCH</span>
+                        <div class="match-circle-meter" id="detailMatchMeter" style="--percent: 94;">
+                            <div class="match-circle-inner">
+                                <strong id="detailMatchScore">94%</strong>
+                                <span>High Match</span>
+                            </div>
+                        </div>
+
+                        <div style="text-align:center; font-size:0.86rem; color:var(--text-secondary); line-height:1.5;">
+                            Your skills strongly align with this position. Your background in Java, Spring Boot, and modern cloud deployment matches their high-priority criteria.
+                        </div>
+
+                        <div style="border-top:1px solid var(--border-subtle); padding-top:14px; font-size:0.8rem;">
+                            <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+                                <span style="color:var(--text-muted);">Skill Alignment:</span>
+                                <strong style="color:var(--success);">96% matched</strong>
+                            </div>
+                            <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+                                <span style="color:var(--text-muted);">Experience Match:</span>
+                                <strong style="color:var(--primary-light);">Optimal (4+ yrs)</strong>
+                            </div>
+                            <div style="display:flex; justify-content:space-between;">
+                                <span style="color:var(--text-muted);">ATS Compatibility:</span>
+                                <strong style="color:var(--success);">92/100</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- RECRUITER CONTACT -->
+                    <div class="stat-card">
+                        <span class="card-kicker">RECRUITMENT TIMELINE</span>
+                        <div style="font-size:0.86rem; color:var(--text-secondary); line-height:1.6;">
+                            <p style="margin-bottom:8px;">⚡ <strong>Fast Track Hiring:</strong> Interviews typically completed within 7 business days.</p>
+                            <p>📍 <strong>Work Model:</strong> 2 days in office / 3 days remote.</p>
+                        </div>
+                        <a href="career-assistant.html" style="font-size:0.82rem; color:var(--primary-light); font-weight:600; margin-top:8px; display:inline-block;">
+                            ✦ Prepare for this interview with AI Coach →
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/dashboard.js"></script>
+    <script src="../js/jobs.js"></script>
+</body>
+
+</html>

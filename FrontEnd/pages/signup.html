@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up | JobHub AI</title>
+    <link rel="stylesheet" href="../css/auth.css">
+    <style>
+        .role-selector {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .role-option {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.88rem;
+            color: var(--muted);
+        }
+        .role-option.active {
+            border-color: var(--primary);
+            background: rgba(139, 92, 246, 0.15);
+            color: #fff;
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.25);
+        }
+        .password-strength-bar {
+            height: 4px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 4px;
+            margin-top: 8px;
+            overflow: hidden;
+            position: relative;
+        }
+        .password-strength-fill {
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease, background-color 0.3s ease;
+            background-color: #ef4444;
+        }
+        .strength-text {
+            font-size: 0.72rem;
+            color: var(--muted);
+            margin-top: 4px;
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Background Moving Orbs -->
+    <div class="auth-background">
+        <div class="auth-orb orb-one"></div>
+        <div class="auth-orb orb-two"></div>
+    </div>
+
+    <!-- Back to Home -->
+    <a href="../index.html" class="back-home">
+        ← Back to Home
+    </a>
+
+    <!-- Container -->
+    <main class="auth-container">
+        <!-- Left Side -->
+        <section class="auth-info">
+            <div class="auth-logo">
+                <span>✦</span>
+                JobHub <b>AI</b>
+            </div>
+
+            <div class="auth-info-content">
+                <div class="ai-mini-badge">
+                    ✨ Next-Gen AI Recruitment
+                </div>
+
+                <h1>
+                    Launch your
+                    <span>career.</span>
+                </h1>
+
+                <p>
+                    Create your free JobHub AI profile today. Get discovered by top tech employers and let our neural algorithm recommend tailored opportunities.
+                </p>
+
+                <div class="auth-features">
+                    <div class="auth-feature">
+                        <span>✦</span>
+                        <div>
+                            <strong>Instant AI Matching</strong>
+                            <p>Matches based on real skills, projects & goals.</p>
+                        </div>
+                    </div>
+
+                    <div class="auth-feature">
+                        <span>◉</span>
+                        <div>
+                            <strong>ATS Resume Score</strong>
+                            <p>Benchmark against 50,000+ job descriptions.</p>
+                        </div>
+                    </div>
+
+                    <div class="auth-feature">
+                        <span>→</span>
+                        <div>
+                            <strong>Custom Skill Roadmaps</strong>
+                            <p>Bridge the gap to senior & lead roles.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Right Side Signup Card -->
+        <section class="auth-card">
+            <div class="auth-card-header">
+                <h2>Create Account</h2>
+                <p>Join thousands of professionals on JobHub AI</p>
+            </div>
+
+            <form id="signupForm" novalidate>
+                <!-- Role Selection -->
+                <div class="role-selector" id="roleSelector">
+                    <div class="role-option active" data-role="seeker">
+                        👨‍💻 Job Seeker
+                    </div>
+                    <div class="role-option" data-role="recruiter">
+                        🏢 Recruiter
+                    </div>
+                </div>
+
+                <!-- Full Name -->
+                <div class="form-group">
+                    <label for="signupName">Full Name</label>
+                    <input
+                        type="text"
+                        id="signupName"
+                        placeholder="Alex Morgan"
+                        required
+                    >
+                </div>
+
+                <!-- Email -->
+                <div class="form-group">
+                    <label for="signupEmail">Email Address</label>
+                    <input
+                        type="email"
+                        id="signupEmail"
+                        placeholder="alex@example.com"
+                        required
+                    >
+                </div>
+
+                <!-- Password -->
+                <div class="form-group">
+                    <div class="password-label">
+                        <label for="signupPassword">Password</label>
+                        <span style="font-size: 0.75rem; color: var(--muted);">Min. 8 characters</span>
+                    </div>
+
+                    <div class="password-wrapper">
+                        <input
+                            type="password"
+                            id="signupPassword"
+                            placeholder="Create a strong password"
+                            required
+                        >
+                        <button
+                            type="button"
+                            class="password-toggle"
+                            id="toggleSignupPassword"
+                        >
+                            👁
+                        </button>
+                    </div>
+
+                    <div class="password-strength-bar">
+                        <div class="password-strength-fill" id="strengthFill"></div>
+                    </div>
+                    <span class="strength-text" id="strengthText">Password strength: Enter password</span>
+                </div>
+
+                <!-- Agree Terms -->
+                <div class="remember-row">
+                    <label>
+                        <input type="checkbox" id="agreeTerms" required>
+                        <span>I agree to the <a href="#" style="color:var(--primary-light);">Terms of Service</a> & <a href="#" style="color:var(--primary-light);">Privacy Policy</a></span>
+                    </label>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="auth-submit">
+                    Create JobHub AI Account
+                </button>
+            </form>
+
+            <div class="auth-divider">
+                <span>OR</span>
+            </div>
+
+            <div class="auth-switch">
+                <span>Already have an account?</span>
+                <a href="login.html">Log in</a>
+            </div>
+        </section>
+    </main>
+
+    <script src="../js/auth.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Applications | JobHub AI</title>
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/job.css">
+</head>
+
+<body>
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="logo">
+            <span class="logo-icon">✦</span>
+            <span>JobHub <b>AI</b></span>
+        </div>
+
+        <nav class="sidebar-nav">
+            <p class="nav-title">MAIN</p>
+            <a href="dashboard.html" class="nav-item">
+                <span>⌂</span>
+                Dashboard
+            </a>
+            <a href="job.html" class="nav-item">
+                <span>⌕</span>
+                Find Jobs
+            </a>
+            <a href="saved-jobs.html" class="nav-item">
+                <span>♡</span>
+                Saved Jobs
+            </a>
+            <a href="application.html" class="nav-item active">
+                <span>▣</span>
+                Applications
+            </a>
+
+            <p class="nav-title">AI TOOLS</p>
+            <a href="ai-matcher.html" class="nav-item">
+                <span>✦</span>
+                AI Job Matcher
+            </a>
+            <a href="resume-analyzer.html" class="nav-item">
+                <span>▤</span>
+                Resume Analyzer
+            </a>
+            <a href="skill-gap.html" class="nav-item">
+                <span>◈</span>
+                Skill Gap
+            </a>
+            <a href="career-assistant.html" class="nav-item">
+                <span>☼</span>
+                Career Assistant
+            </a>
+
+            <p class="nav-title">ACCOUNT</p>
+            <a href="profile.html" class="nav-item">
+                <span>♙</span>
+                My Profile
+            </a>
+            <a href="companies.html" class="nav-item">
+                <span>▦</span>
+                Companies
+            </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="ai-mini-card" onclick="window.location.href='career-assistant.html'">
+                <div class="ai-mini-icon">✦</div>
+                <div>
+                    <strong>AI Mock Interview</strong>
+                    <p>Practice for upcoming interviews</p>
+                </div>
+            </div>
+            <a href="login.html" class="logout-btn">
+                <span>↪</span>
+                Logout
+            </a>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+        <!-- TOPBAR -->
+        <header class="topbar">
+            <div class="mobile-logo">✦ JobHub <b>AI</b></div>
+            <div class="topbar-search">
+                <span>⌕</span>
+                <input type="text" id="dashboardSearch" placeholder="Search jobs, skills or companies...">
+            </div>
+            <div class="topbar-right">
+                <button class="notification-btn" id="notificationBtn">
+                    ♢
+                    <span class="notification-dot"></span>
+                </button>
+                <div class="profile-mini" id="profileMenu">
+                    <div class="avatar">JD</div>
+                    <div class="profile-mini-info">
+                        <strong>Job Seeker</strong>
+                        <span>Candidate</span>
+                    </div>
+                    <span class="profile-arrow">⌄</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- PAGE CONTENT -->
+        <div class="page-container">
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
+                <div>
+                    <span class="card-kicker">✦ REAL-TIME APPLICATION PIPELINE</span>
+                    <h1 style="font-size:2rem; font-weight:800; color:#fff;">Application Status Board</h1>
+                    <p style="color:var(--text-secondary); font-size:0.92rem;">Track recruiter reviews, technical screening, and scheduled interviews in real time</p>
+                </div>
+                <a href="job.html" class="apply-btn">+ Apply to New Job</a>
+            </div>
+
+            <!-- APPLICATION STATUS KANBAN PIPELINE -->
+            <div class="application-pipeline-grid">
+                <!-- Column 1: Applied -->
+                <div class="pipeline-column" data-status="applied">
+                    <div class="pipeline-header">
+                        <h4><span>📋</span> Applied</h4>
+                        <span class="pipeline-count">0</span>
+                    </div>
+                    <div id="colApplied" style="display:flex; flex-direction:column; gap:12px;"></div>
+                </div>
+
+                <!-- Column 2: Screening -->
+                <div class="pipeline-column" data-status="screening">
+                    <div class="pipeline-header">
+                        <h4><span>🔍</span> Screening</h4>
+                        <span class="pipeline-count">0</span>
+                    </div>
+                    <div id="colScreening" style="display:flex; flex-direction:column; gap:12px;"></div>
+                </div>
+
+                <!-- Column 3: Interview -->
+                <div class="pipeline-column" data-status="interview">
+                    <div class="pipeline-header">
+                        <h4><span>💬</span> Interviewing</h4>
+                        <span class="pipeline-count">0</span>
+                    </div>
+                    <div id="colInterview" style="display:flex; flex-direction:column; gap:12px;"></div>
+                </div>
+
+                <!-- Column 4: Offer -->
+                <div class="pipeline-column" data-status="offer">
+                    <div class="pipeline-header">
+                        <h4><span>🎉</span> Offers Received</h4>
+                        <span class="pipeline-count">0</span>
+                    </div>
+                    <div id="colOffer" style="display:flex; flex-direction:column; gap:12px;"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/dashboard.js"></script>
+    <script src="../js/jobs.js"></script>
+</body>
+
+</html>

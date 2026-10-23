@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Jobs | JobHub AI</title>
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/job.css">
+</head>
+
+<body>
+    <!-- ============================= -->
+    <!-- SIDEBAR -->
+    <!-- ============================= -->
+    <aside class="sidebar">
+        <div class="logo">
+            <span class="logo-icon">✦</span>
+            <span>JobHub <b>AI</b></span>
+        </div>
+
+        <nav class="sidebar-nav">
+            <p class="nav-title">MAIN</p>
+            <a href="dashboard.html" class="nav-item">
+                <span>⌂</span>
+                Dashboard
+            </a>
+            <a href="job.html" class="nav-item active">
+                <span>⌕</span>
+                Find Jobs
+            </a>
+            <a href="saved-jobs.html" class="nav-item">
+                <span>♡</span>
+                Saved Jobs
+            </a>
+            <a href="application.html" class="nav-item">
+                <span>▣</span>
+                Applications
+            </a>
+
+            <p class="nav-title">AI TOOLS</p>
+            <a href="ai-matcher.html" class="nav-item">
+                <span>✦</span>
+                AI Job Matcher
+            </a>
+            <a href="resume-analyzer.html" class="nav-item">
+                <span>▤</span>
+                Resume Analyzer
+            </a>
+            <a href="skill-gap.html" class="nav-item">
+                <span>◈</span>
+                Skill Gap
+            </a>
+            <a href="career-assistant.html" class="nav-item">
+                <span>☼</span>
+                Career Assistant
+            </a>
+
+            <p class="nav-title">ACCOUNT</p>
+            <a href="profile.html" class="nav-item">
+                <span>♙</span>
+                My Profile
+            </a>
+            <a href="companies.html" class="nav-item">
+                <span>▦</span>
+                Companies
+            </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="ai-mini-card" onclick="window.location.href='career-assistant.html'">
+                <div class="ai-mini-icon">✦</div>
+                <div>
+                    <strong>AI Career Coach</strong>
+                    <p>Ask for resume or interview tips</p>
+                </div>
+            </div>
+            <a href="login.html" class="logout-btn">
+                <span>↪</span>
+                Logout
+            </a>
+        </div>
+    </aside>
+
+    <!-- ============================= -->
+    <!-- MAIN CONTENT -->
+    <!-- ============================= -->
+    <main class="main-content">
+        <!-- TOPBAR -->
+        <header class="topbar">
+            <div class="mobile-logo">
+                ✦ JobHub <b>AI</b>
+            </div>
+
+            <div class="topbar-search">
+                <span>⌕</span>
+                <input
+                    type="text"
+                    id="dashboardSearch"
+                    placeholder="Search jobs, skills or companies..."
+                >
+            </div>
+
+            <div class="topbar-right">
+                <button class="notification-btn" id="notificationBtn">
+                    ♢
+                    <span class="notification-dot"></span>
+                </button>
+                <div class="profile-mini" id="profileMenu">
+                    <div class="avatar">JD</div>
+                    <div class="profile-mini-info">
+                        <strong>Job Seeker</strong>
+                        <span>Candidate</span>
+                    </div>
+                    <span class="profile-arrow">⌄</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- PAGE CONTENT -->
+        <div class="page-container">
+            <!-- HERO & SEARCH -->
+            <section class="jobs-hero">
+                <div class="jobs-hero-content">
+                    <span class="card-kicker">✦ AI DISCOVERY ENGINE</span>
+                    <h1>Find your next <span>dream role.</span></h1>
+                    <p>Explore high-impact tech opportunities evaluated and ranked by our neural matching algorithm.</p>
+
+                    <!-- SEARCH BAR -->
+                    <div class="search-filter-bar">
+                        <div class="search-input-group">
+                            <span>⌕</span>
+                            <input type="text" id="jobSearchKeyword" placeholder="Title, skill (e.g. Java, Python, React)">
+                        </div>
+                        <div class="search-filter-divider"></div>
+                        <div class="search-input-group">
+                            <span>⌖</span>
+                            <input type="text" id="jobSearchLocation" placeholder="City (e.g. Bangalore, Hyderabad)">
+                        </div>
+                        <button class="search-execute-btn" id="btnRunSearch">Search Jobs</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CATEGORY PILLS -->
+            <div class="filter-tags-row">
+                <div class="filter-tag active" data-category="all">⚡ All Categories</div>
+                <div class="filter-tag" data-category="engineering">💻 Software Engineering</div>
+                <div class="filter-tag" data-category="ai">🧠 AI & Machine Learning</div>
+                <div class="filter-tag" data-category="data">📊 Data Analytics</div>
+                <div class="filter-tag" data-category="design">🎨 UI/UX Design</div>
+            </div>
+
+            <!-- JOBS LAYOUT: FILTERS + LISTINGS -->
+            <div class="jobs-main-layout">
+                <!-- SIDEBAR FILTERS -->
+                <aside class="filter-sidebar">
+                    <div class="filter-group">
+                        <h4>Filters</h4>
+                        <button class="reset-filters-btn" id="resetFiltersBtn" style="width:100%;">Reset All Filters</button>
+                    </div>
+
+                    <div class="filter-group">
+                        <h4>Workplace Type</h4>
+                        <label><input type="checkbox" name="workplace" value="Remote"> Remote</label>
+                        <label><input type="checkbox" name="workplace" value="Hybrid" checked> Hybrid</label>
+                        <label><input type="checkbox" name="workplace" value="On-site"> On-site</label>
+                    </div>
+
+                    <div class="filter-group">
+                        <h4>Minimum Salary (LPA)</h4>
+                        <input type="range" min="5" max="35" value="10" step="1" class="range-slider" id="salaryRange">
+                        <div class="range-labels">
+                            <span>₹5 LPA</span>
+                            <span id="salaryValue" style="color:var(--primary-light); font-weight:700;">₹10+ LPA</span>
+                            <span>₹35 LPA</span>
+                        </div>
+                    </div>
+
+                    <div class="filter-group">
+                        <h4>Experience Level</h4>
+                        <label><input type="checkbox" checked> Fresher / 0–1 yrs</label>
+                        <label><input type="checkbox" checked> Mid-Level / 2–5 yrs</label>
+                        <label><input type="checkbox" checked> Senior / 5+ yrs</label>
+                    </div>
+                </aside>
+
+                <!-- LISTINGS CONTAINER -->
+                <section>
+                    <div class="jobs-listing-header">
+                        <h3 id="jobResultCount">Loading Jobs...</h3>
+                        <div style="display:flex; align-items:center; gap:8px;">
+                            <span style="font-size:0.82rem; color:var(--text-muted);">Sort By:</span>
+                            <select class="jobs-sort-select" id="jobSort">
+                                <option value="match">✦ Highest AI Match</option>
+                                <option value="salary">₹ Highest Salary</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- DYNAMIC JOBS GRID INJECTED BY jobs.js -->
+                    <div class="jobs-cards-grid" id="jobsContainer"></div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/dashboard.js"></script>
+    <script src="../js/jobs.js"></script>
+</body>
+
+</html>

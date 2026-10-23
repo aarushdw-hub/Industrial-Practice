@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Analyzer | JobHub AI</title>
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/job.css">
+    <link rel="stylesheet" href="../css/ai.css">
+</head>
+
+<body>
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="logo">
+            <span class="logo-icon">✦</span>
+            <span>JobHub <b>AI</b></span>
+        </div>
+
+        <nav class="sidebar-nav">
+            <p class="nav-title">MAIN</p>
+            <a href="dashboard.html" class="nav-item">
+                <span>⌂</span>
+                Dashboard
+            </a>
+            <a href="job.html" class="nav-item">
+                <span>⌕</span>
+                Find Jobs
+            </a>
+            <a href="saved-jobs.html" class="nav-item">
+                <span>♡</span>
+                Saved Jobs
+            </a>
+            <a href="application.html" class="nav-item">
+                <span>▣</span>
+                Applications
+            </a>
+
+            <p class="nav-title">AI TOOLS</p>
+            <a href="ai-matcher.html" class="nav-item">
+                <span>✦</span>
+                AI Job Matcher
+            </a>
+            <a href="resume-analyzer.html" class="nav-item active">
+                <span>▤</span>
+                Resume Analyzer
+            </a>
+            <a href="skill-gap.html" class="nav-item">
+                <span>◈</span>
+                Skill Gap
+            </a>
+            <a href="career-assistant.html" class="nav-item">
+                <span>☼</span>
+                Career Assistant
+            </a>
+
+            <p class="nav-title">ACCOUNT</p>
+            <a href="profile.html" class="nav-item">
+                <span>♙</span>
+                My Profile
+            </a>
+            <a href="companies.html" class="nav-item">
+                <span>▦</span>
+                Companies
+            </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="ai-mini-card" onclick="window.location.href='career-assistant.html'">
+                <div class="ai-mini-icon">✦</div>
+                <div>
+                    <strong>AI Assistant</strong>
+                    <p>Ask for resume coaching</p>
+                </div>
+            </div>
+            <a href="login.html" class="logout-btn">
+                <span>↪</span>
+                Logout
+            </a>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+        <!-- TOPBAR -->
+        <header class="topbar">
+            <div class="mobile-logo">✦ JobHub <b>AI</b></div>
+            <div class="topbar-search">
+                <span>⌕</span>
+                <input type="text" id="dashboardSearch" placeholder="Search jobs, skills or companies...">
+            </div>
+            <div class="topbar-right">
+                <button class="notification-btn" id="notificationBtn">
+                    ♢
+                    <span class="notification-dot"></span>
+                </button>
+                <div class="profile-mini" id="profileMenu">
+                    <div class="avatar">JD</div>
+                    <div class="profile-mini-info">
+                        <strong>Job Seeker</strong>
+                        <span>Candidate</span>
+                    </div>
+                    <span class="profile-arrow">⌄</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- PAGE CONTENT -->
+        <div class="page-container">
+            <div>
+                <span class="card-kicker">✦ AUTOMATED APPLICANT TRACKING SYSTEM BENCHMARK</span>
+                <h1 style="font-size:2rem; font-weight:800; color:#fff;">AI Resume Scanner & ATS Optimizer</h1>
+                <p style="color:var(--text-secondary); font-size:0.92rem;">Audit your resume against Fortune 500 ATS algorithms to maximize interview shortlist rates.</p>
+            </div>
+
+            <!-- SCANNER DOCUMENT CONTAINER WITH LASER LINE -->
+            <section class="scanner-visual-container" style="align-items:stretch;">
+                <div class="scan-doc-preview">
+                    <!-- Laser Moving Line -->
+                    <div class="scan-laser-line" id="scanLaserLine"></div>
+
+                    <div class="file-dropzone" id="resumeDropzone" style="margin-bottom:14px;">
+                        <span style="font-size:2.2rem; display:block; margin-bottom:6px;">📑</span>
+                        <strong style="color:#fff; font-size:0.95rem; display:block;" id="dropzoneFileName">Alex_Morgan_Resume_2026.pdf (Ready to Scan)</strong>
+                        <span style="color:var(--text-muted); font-size:0.75rem;">Click to upload a new resume or drop PDF/DOCX file here</span>
+                        <input type="file" id="resumeFilePicker" style="display:none;" accept=".pdf,.doc,.docx">
+                    </div>
+
+                    <p style="font-size:0.8rem; color:var(--text-muted); text-align:center;">
+                        ✦ AI parses contact info, bullet points, tech keywords, and action verbs.
+                    </p>
+                </div>
+
+                <div style="text-align:center;">
+                    <button class="apply-btn" id="btnRunResumeScan" style="padding:14px 40px; font-size:0.95rem;">
+                        ✦ Analyze Resume with AI
+                    </button>
+                </div>
+            </section>
+
+            <!-- SCAN RESULTS SECTION -->
+            <div id="resumeScanResults" style="display:flex; flex-direction:column; gap:24px;">
+                <!-- TOP METRIC CARDS -->
+                <div style="display:grid; grid-template-columns: 280px 1fr; gap:24px; align-items:stretch;">
+                    <!-- ATS Score Dial -->
+                    <div class="ai-match-breakdown-card" style="align-items:center; justify-content:center; text-align:center;">
+                        <span class="card-kicker">OVERALL ATS RATING</span>
+                        <div class="match-circle-meter" style="--percent: 88; width:130px; height:130px;">
+                            <div class="match-circle-inner" style="width:104px; height:104px;">
+                                <strong style="font-size:1.8rem; color:var(--success);">88</strong>
+                                <span style="font-size:0.7rem; color:var(--text-muted);">OUT OF 100</span>
+                            </div>
+                        </div>
+                        <strong style="color:#fff; font-size:1rem; margin-top:8px;">Tier 1 Interview Ready</strong>
+                        <p style="color:var(--text-secondary); font-size:0.8rem;">Your resume passes 94% of enterprise ATS parsers.</p>
+                    </div>
+
+                    <!-- Category Bars -->
+                    <div class="profile-card" style="justify-content:center;">
+                        <div class="ats-metrics-grid" style="margin-top:0;">
+                            <div class="ats-metric-box">
+                                <div class="ats-metric-header">
+                                    <span>Impact & Metrics</span>
+                                    <strong>92%</strong>
+                                </div>
+                                <div class="ats-metric-bar">
+                                    <div class="ats-metric-fill" data-target="92" style="width:92%;"></div>
+                                </div>
+                                <small style="font-size:0.72rem; color:var(--success);">✓ Excellent quantified metrics</small>
+                            </div>
+
+                            <div class="ats-metric-box">
+                                <div class="ats-metric-header">
+                                    <span>Keywords & Tech</span>
+                                    <strong>86%</strong>
+                                </div>
+                                <div class="ats-metric-bar">
+                                    <div class="ats-metric-fill" data-target="86" style="width:86%;"></div>
+                                </div>
+                                <small style="font-size:0.72rem; color:var(--primary-light);">✦ Good core tech density</small>
+                            </div>
+
+                            <div class="ats-metric-box">
+                                <div class="ats-metric-header">
+                                    <span>ATS Formatting</span>
+                                    <strong>95%</strong>
+                                </div>
+                                <div class="ats-metric-bar">
+                                    <div class="ats-metric-fill" data-target="95" style="width:95%;"></div>
+                                </div>
+                                <small style="font-size:0.72rem; color:var(--success);">✓ Clean parsing hierarchy</small>
+                            </div>
+
+                            <div class="ats-metric-box">
+                                <div class="ats-metric-header">
+                                    <span>Brevity & Conciseness</span>
+                                    <strong>82%</strong>
+                                </div>
+                                <div class="ats-metric-bar">
+                                    <div class="ats-metric-fill" data-target="82" style="width:82%;"></div>
+                                </div>
+                                <small style="font-size:0.72rem; color:var(--warning);">◈ 1 bullet can be trimmed</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- KEYWORD RECOMMENDATIONS -->
+                <div class="profile-card">
+                    <h3><span>🔑</span> Recommended High-Demand Keywords</h3>
+                    <p style="color:var(--text-secondary); font-size:0.86rem;">
+                        Adding these keywords will increase your visibility in search queries for Senior Engineer and Tech Lead roles:
+                    </p>
+                    <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:8px;">
+                        <span class="skill-tag" style="background:rgba(139,92,246,0.18); border-color:var(--primary); color:#fff;">+ Kafka (Appears in 68% of senior roles)</span>
+                        <span class="skill-tag" style="background:rgba(139,92,246,0.18); border-color:var(--primary); color:#fff;">+ Distributed Caching</span>
+                        <span class="skill-tag" style="background:rgba(139,92,246,0.18); border-color:var(--primary); color:#fff;">+ CI/CD Pipelines</span>
+                        <span class="skill-tag" style="background:rgba(139,92,246,0.18); border-color:var(--primary); color:#fff;">+ Kubernetes</span>
+                    </div>
+                </div>
+
+                <!-- INTERACTIVE BULLET POINT OPTIMIZER -->
+                <div class="profile-card">
+                    <h3><span>⚡</span> AI Bullet Point Optimizer</h3>
+                    <p style="color:var(--text-secondary); font-size:0.86rem;">
+                        Paste any resume experience bullet point below. AI will enhance it using the Google X-Y-Z formula (Accomplished [X] as measured by [Y], by doing [Z]).
+                    </p>
+                    <div style="display:flex; gap:10px; margin-top:8px;">
+                        <input type="text" id="bulletInput" placeholder="e.g. Worked on payment microservices and fixed bugs in Java" style="flex:1; background:rgba(255,255,255,0.04); border:1px solid var(--border-subtle); border-radius:8px; padding:10px 14px; color:#fff;">
+                        <button class="apply-btn" id="btnOptimizeBullet">Optimize Bullet</button>
+                    </div>
+                    <div id="bulletOutput" style="display:none;"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/dashboard.js"></script>
+    <script src="../js/ai.js"></script>
+</body>
+
+</html>

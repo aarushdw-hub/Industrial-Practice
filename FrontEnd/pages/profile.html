@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile | JobHub AI</title>
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/profile.css">
+</head>
+
+<body>
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="logo">
+            <span class="logo-icon">✦</span>
+            <span>JobHub <b>AI</b></span>
+        </div>
+
+        <nav class="sidebar-nav">
+            <p class="nav-title">MAIN</p>
+            <a href="dashboard.html" class="nav-item">
+                <span>⌂</span>
+                Dashboard
+            </a>
+            <a href="job.html" class="nav-item">
+                <span>⌕</span>
+                Find Jobs
+            </a>
+            <a href="saved-jobs.html" class="nav-item">
+                <span>♡</span>
+                Saved Jobs
+            </a>
+            <a href="application.html" class="nav-item">
+                <span>▣</span>
+                Applications
+            </a>
+
+            <p class="nav-title">AI TOOLS</p>
+            <a href="ai-matcher.html" class="nav-item">
+                <span>✦</span>
+                AI Job Matcher
+            </a>
+            <a href="resume-analyzer.html" class="nav-item">
+                <span>▤</span>
+                Resume Analyzer
+            </a>
+            <a href="skill-gap.html" class="nav-item">
+                <span>◈</span>
+                Skill Gap
+            </a>
+            <a href="career-assistant.html" class="nav-item">
+                <span>☼</span>
+                Career Assistant
+            </a>
+
+            <p class="nav-title">ACCOUNT</p>
+            <a href="profile.html" class="nav-item active">
+                <span>♙</span>
+                My Profile
+            </a>
+            <a href="companies.html" class="nav-item">
+                <span>▦</span>
+                Companies
+            </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="ai-mini-card" onclick="window.location.href='resume-analyzer.html'">
+                <div class="ai-mini-icon">▤</div>
+                <div>
+                    <strong>Scan Resume</strong>
+                    <p>Get ATS score & keyword tips</p>
+                </div>
+            </div>
+            <a href="login.html" class="logout-btn">
+                <span>↪</span>
+                Logout
+            </a>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+        <!-- TOPBAR -->
+        <header class="topbar">
+            <div class="mobile-logo">✦ JobHub <b>AI</b></div>
+            <div class="topbar-search">
+                <span>⌕</span>
+                <input type="text" id="dashboardSearch" placeholder="Search jobs, skills or companies...">
+            </div>
+            <div class="topbar-right">
+                <button class="notification-btn" id="notificationBtn">
+                    ♢
+                    <span class="notification-dot"></span>
+                </button>
+                <div class="profile-mini" id="profileMenu">
+                    <div class="avatar">JD</div>
+                    <div class="profile-mini-info">
+                        <strong>Job Seeker</strong>
+                        <span>Candidate</span>
+                    </div>
+                    <span class="profile-arrow">⌄</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- PAGE CONTENT -->
+        <div class="page-container">
+            <!-- PROFILE HERO BANNER -->
+            <section class="profile-hero">
+                <div class="profile-user-info">
+                    <div class="profile-avatar-large" id="profileAvatarLarge">AM</div>
+                    <div class="profile-headings">
+                        <span class="card-kicker">✦ VERIFIED CANDIDATE PROFILE</span>
+                        <h1 id="profileNameHero">Alex Morgan</h1>
+                        <p id="profileHeadlineHero">Full Stack Engineer | Java & React</p>
+                        <div class="profile-meta-row">
+                            <span id="profileLocationHero">📍 Bangalore, India</span>
+                            <span id="profileEmailHero">✉ alex.morgan@example.com</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PROFILE STRENGTH GAUGE -->
+                <div class="profile-strength-box">
+                    <div class="strength-dial" id="profileStrengthDial" style="--percent: 85;">
+                        <div class="strength-dial-inner" id="profileStrengthText">85%</div>
+                    </div>
+                    <div>
+                        <strong style="color:#fff; font-size:0.92rem; display:block;">Profile Strength</strong>
+                        <span style="color:var(--text-muted); font-size:0.75rem;">Higher strength leads to 3x more recruiter inbounds</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- EDIT FORMS -->
+            <div style="display:flex; flex-direction:column; gap:24px;">
+                <!-- 1. PERSONAL INFORMATION -->
+                <div class="profile-card">
+                    <h3><span>👤</span> Personal & Contact Details</h3>
+                    <div class="form-grid-2">
+                        <div class="form-control-group">
+                            <label>Full Name</label>
+                            <input type="text" id="inputName">
+                        </div>
+                        <div class="form-control-group">
+                            <label>Professional Headline</label>
+                            <input type="text" id="inputHeadline">
+                        </div>
+                        <div class="form-control-group">
+                            <label>Email Address</label>
+                            <input type="email" id="inputEmail">
+                        </div>
+                        <div class="form-control-group">
+                            <label>Phone Number</label>
+                            <input type="tel" id="inputPhone">
+                        </div>
+                        <div class="form-control-group" style="grid-column: 1 / -1;">
+                            <label>Current Location / Preferred Base</label>
+                            <input type="text" id="inputLocation">
+                        </div>
+                        <div class="form-control-group" style="grid-column: 1 / -1;">
+                            <label>Professional Summary & Bio</label>
+                            <textarea id="inputBio" rows="4"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. SKILLS PORTFOLIO -->
+                <div class="profile-card">
+                    <h3><span>⚡</span> Technical Skills & Stack</h3>
+                    <p style="color:var(--text-secondary); font-size:0.85rem;">
+                        Our AI matching algorithm scans these tags to calculate compatibility with employer job posts.
+                    </p>
+
+                    <div class="skills-input-wrapper">
+                        <input type="text" id="skillInput" placeholder="Add a skill (e.g. Kubernetes, AWS, Spring Boot, Java)" style="flex:1; background:rgba(255,255,255,0.04); border:1px solid var(--border-subtle); border-radius:8px; padding:10px 14px; color:#fff;">
+                        <button class="apply-btn" id="addSkillBtn" style="padding:10px 20px;">+ Add Skill</button>
+                    </div>
+
+                    <!-- ACTIVE SKILLS TAGS -->
+                    <div class="skills-tags-container" id="skillsContainer"></div>
+
+                    <!-- SUGGESTED SKILLS CHIPS -->
+                    <div>
+                        <span style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:6px;">Popular High-Demand Skills (Click to add):</span>
+                        <div class="suggested-skills-row">
+                            <span class="suggested-skill-chip">+ Spring Boot</span>
+                            <span class="suggested-skill-chip">+ Docker</span>
+                            <span class="suggested-skill-chip">+ Kubernetes</span>
+                            <span class="suggested-skill-chip">+ Python</span>
+                            <span class="suggested-skill-chip">+ AWS</span>
+                            <span class="suggested-skill-chip">+ Microservices</span>
+                            <span class="suggested-skill-chip">+ React</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. WORK EXPERIENCE -->
+                <div class="profile-card">
+                    <h3><span>💼</span> Work Experience</h3>
+                    <div style="display:flex; flex-direction:column; gap:16px;">
+                        <div class="timeline-card">
+                            <h4>Software Engineer — Tech Mahindra</h4>
+                            <span>2023 – Present · Full-time</span>
+                            <p>Engineered scalable REST microservices handling 2M+ daily requests using Java, Spring Boot, and Redis.</p>
+                        </div>
+                        <div class="timeline-card">
+                            <h4>Junior Full Stack Developer — Cognizant</h4>
+                            <span>2021 – 2023 · Full-time</span>
+                            <p>Built modern responsive customer portals using React, TypeScript, and Node.js.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. RESUME & DOCUMENTS -->
+                <div class="profile-card">
+                    <h3><span>📄</span> Attached Resume & Portfolio</h3>
+                    <div class="file-dropzone" id="profileResumeDropzone">
+                        <span style="font-size:2rem; display:block; margin-bottom:4px;">📑</span>
+                        <span style="font-size:0.9rem; color:#fff; font-weight:600;" id="profileResumeName">Alex_Morgan_Resume_2026.pdf</span>
+                        <p style="color:var(--text-muted); font-size:0.75rem; margin-top:4px;">Drag and drop to update resume or click to browse (PDF, DOCX)</p>
+                        <input type="file" id="profileResumeInput" style="display:none;" accept=".pdf,.doc,.docx">
+                    </div>
+                    <div style="display:flex; justify-content:flex-end;">
+                        <a href="resume-analyzer.html" class="filter-tag" style="padding:8px 16px;">
+                            ✦ Run AI Resume Analyzer on this file →
+                        </a>
+                    </div>
+                </div>
+
+                <!-- SAVE BUTTON BAR -->
+                <div style="display:flex; justify-content:flex-end; gap:16px; margin-top:10px;">
+                    <button class="apply-btn" id="saveProfileBtn" style="padding:14px 36px; font-size:0.95rem;">
+                        ✦ Save Profile Changes
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/dashboard.js"></script>
+    <script src="../js/profile.js"></script>
+</body>
+
+</html>
